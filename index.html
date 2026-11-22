@@ -69,12 +69,19 @@ html.lock #hero,html.lock #cue,html.lock #info{visibility:hidden}
 .pop a{color:var(--w);text-decoration:none;border-bottom:1px solid var(--c);pointer-events:auto}
 .pop.l{left:var(--pad)}.pop.r{right:calc(var(--pad) + 26px);text-align:right}
 .p1{top:18%}.p2{top:43%}.p3{top:68%}
-#mf{position:absolute;left:50%;bottom:calc(var(--pad) + 46px);transform:translateX(-50%);width:min(560px,80vw);text-align:center;font-size:clamp(14px,1.6vw,19px);font-style:italic;color:var(--w);opacity:.85;text-shadow:0 2px 20px #000}
+#mf{position:absolute;left:50%;bottom:calc(var(--pad) + 108px);transform:translateX(-50%);width:min(560px,80vw);text-align:center;font-size:clamp(14px,1.6vw,19px);font-style:italic;color:var(--w);opacity:.85;text-shadow:0 2px 20px #000}
 #cue b{display:block;font-size:18px;margin-top:6px;animation:cueb 1.6s ease-in-out infinite}
+.pop a{color:var(--w)}
+#more{position:absolute;left:50%;bottom:var(--pad);transform:translateX(-50%) translateY(10px);width:min(780px,92vw);text-align:center;font-size:11px;line-height:2;opacity:0;transition:opacity .6s,transform .6s;text-shadow:0 2px 20px #000;pointer-events:none}
+#more.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
+#more b{color:var(--c);font-weight:400;margin-right:6px}
+#more a{color:var(--w);text-decoration:none;border-bottom:1px solid var(--c);margin:0 7px;white-space:nowrap;display:inline-block;line-height:1.5}
 @keyframes cueb{0%,100%{transform:translateY(0);opacity:.5}50%{transform:translateY(7px);opacity:1}}
 @media (orientation:portrait){
  #scan video{top:30%;width:62vw;height:62vw}
  #mf{top:calc(var(--pad) + 44px);bottom:auto;font-size:13px}
+ #more{bottom:auto;top:calc(var(--pad) + 92px);font-size:10px;line-height:2}
+ #more a{margin:0 5px}
  .pop span:last-child{font-size:12px}
  .pop{width:calc(50vw - var(--pad) - 6px)}
  .pop.l{left:var(--pad)}.pop.r{right:var(--pad);text-align:left;left:calc(50vw + 6px)}
@@ -107,8 +114,8 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 20</div>
-<iframe id="bv" src="assets/botinavision.html?v=20" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<div id="dbg"></div><div id="ver">build 21</div>
+<iframe id="bv" src="assets/botinavision.html?v=21" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -123,6 +130,7 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
   <div class="pop l p3"><span class="mono" data-k="s5k"></span><span data-k="s5v"></span></div>
   <div class="pop r p3"><span class="mono" data-k="s6k"></span><span><a href="mailto:hola@botina.co">hola@botina.co</a><br><a href="https://x.com/Botina" target="_blank" rel="noopener">X @Botina</a><br><a href="https://instagram.com/botina06" target="_blank" rel="noopener">IG @botina06</a></span></div>
   <p id="mf" data-k="mf"></p>
+  <p id="more" class="mono"><b data-k="mk"></b><a href="https://youtu.be/MpClhV_Hrkc" target="_blank" rel="noopener">Rêverie · 2020 ↗</a><a href="https://youtu.be/ftiZGQv5MJs" target="_blank" rel="noopener">Rêverie · Amore et Psiche autoremix ↗</a><a href="https://youtu.be/kX0hdI_XD_Y" target="_blank" rel="noopener">Flashback · 2019 ↗</a><a href="https://youtu.be/n8e_QutaUk4" target="_blank" rel="noopener">Caracas Club · 2019 ↗</a><a href="https://youtu.be/J7198uKp0qo" target="_blank" rel="noopener">Mama Kunk · Al despertar (remix) ↗</a><a href="https://rarible.com/botina/sale" target="_blank" rel="noopener">Animaciones NFT ↗</a><a href="https://www.youtube.com/user/botina1983" target="_blank" rel="noopener">YouTube ↗</a></p>
  </div>
  <div id="info"><div class="n mono"></div><h2></h2><p></p><div class="aw mono"></div><a target="_blank" rel="noopener" hidden></a></div>
  <div id="lpf" class="mono"><span id="lpft">LPF</span><i><u id="lpfb"></u></i></div>
@@ -146,12 +154,12 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search);
-const VER="20";window.__mob=mobile;
+const VER="21";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
 en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos and video art, mixed live inside a real-time 3D spectrogram.",cue:"Scroll down",cueM:"Swipe down",gate:"To explore the work, scroll down with your mouse wheel or swipe. The sound opens up and the spectrogram turns to reveal each piece. Best with headphones.",tune:"Tuning…",go:"Enter with sound",goq:"Enter silent",snd:"Sound",
- s1k:"Botina",s1v:"Music producer · audiovisual director · Pasto, Colombia",s2k:"Instrument",s2v:"Botinavision: real-time 3D that reacts to sound. This page runs on it.",s3k:"Awards",s3v:"1st place HUG × Transient Labs (NY) · Best music video, Pasto Int'l Film Festival · Honorable mention, Festival de la Imagen",s4k:"Shown at",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month Paris · Crypto Art Seoul · Rinascente Milan · Cinemateca de Bogotá",s5k:"Music & press",s5v:"Single “Y”, LOVESEXDANCE Records, Milan · “Rosario” featured in the Financial Times (2021)",s6k:"Say hi",mf:"“I choose to be forever free, forever human.”",
+ s1k:"Botina",s1v:"Music producer · audiovisual director · Pasto, Colombia",s2k:"Instrument",s2v:"Botinavision: real-time 3D that reacts to sound. This page runs on it.",s3k:"Awards",s3v:"1st place HUG × Transient Labs (NY) · Best music video, Pasto Int'l Film Festival · Honorable mention, Festival de la Imagen",s4k:"Shown at",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month Paris · Crypto Art Seoul · Rinascente Milan · Cinemateca de Bogotá",s5k:"Music & press",s5v:"Single “Y”, LOVESEXDANCE Records, Milan · “Rosario” featured in the Financial Times (2021)",s6k:"Say hi",mk:"More work",mf:"“I choose to be forever free, forever human.”",
  p:[
  {t:"Knock Out",m:"2025 · Music video · written, produced and directed by Botina",d:"Life as a fight. My own avatar, scanned with photogrammetry, walks through fire and through the instruments I make music with, until the colossal force that should crush him starts working in his favor.",w:"Best Music Video — Pasto International Film Festival · Official selection — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Watch full piece"},
  {t:"Tetrahedron",m:"2024 · 3D animation",d:"Fire element: the Galeras volcano rebuilt from satellite data, a dancer's motion capture and the voice of mezzo-soprano Consuelo López.",w:"Honorable mention — XX Festival de la Imagen · Shown at Cinemateca de Bogotá · Official selection — Pasto International Film Festival"},
@@ -160,7 +168,7 @@ en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos 
  {t:"Live",m:"Live set · LED jacket · Botinavision",d:"My own tracks mixed live, with the jacket and the visuals responding."}
  ]},
 es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte premiados, mezclados en vivo dentro de un espectrograma 3D en tiempo real.",cue:"Baja con la rueda del mouse",cueM:"Desliza hacia abajo",gate:"Para recorrer las obras, baja con la rueda del mouse o desliza. El sonido se abre y el espectrograma gira para mostrar cada pieza. Mejor con audífonos.",tune:"Afinando…",go:"Entrar con sonido",goq:"Entrar en silencio",snd:"Sonido",
- s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mf:"«Elijo ser por siempre libre, por siempre humano.»",
+ s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mk:"Otras obras",mf:"«Elijo ser por siempre libre, por siempre humano.»",
  p:[
  {t:"Knock Out",m:"2025 · Videoclip · escrito, producido y dirigido por Botina",d:"La vida como una pelea. Mi propio avatar, escaneado con fotogrametría, atraviesa el fuego y los instrumentos con los que hago música, hasta que la fuerza colosal que debería aplastarlo empieza a trabajar a su favor.",w:"Mejor videoclip — Festival Internacional de Cine de Pasto · Selección oficial — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Ver la pieza completa"},
  {t:"Tetrahedron",m:"2024 · Animación 3D",d:"Elemento fuego: el volcán Galeras reconstruido con datos satelitales, la captura de movimiento de un bailarín y la voz de la mezzosoprano Consuelo López.",w:"Mención de honor — XX Festival de la Imagen · Exhibida en la Cinemateca de Bogotá · Selección oficial — Festival Internacional de Cine de Pasto"},
@@ -289,7 +297,7 @@ const CUT_LO=150,CUT_HI=18000;
 const fcState=new Float32Array(N).fill(CUT_LO);
 const info=$("#info"),infoN=info.querySelector(".n"),infoH=info.querySelector("h2"),infoP=info.querySelector("p"),infoW=info.querySelector(".aw"),infoA=info.querySelector("a");
 const heroEl=$("#hero"),scanEl=$("#scan"),cue=$("#cue"),dbg=$("#dbg");
-const pops=[...document.querySelectorAll(".pop")];
+const pops=[...document.querySelectorAll(".pop")],moreEl=document.getElementById("more");
 const dotEls=[...dots.children];
 let lpfShown=CUT_LO,last=performance.now(),errN=0;
 
@@ -390,6 +398,7 @@ function tick(now){
   info.style.opacity=iop;info.style.pointerEvents=iop>.5?"auto":"none";
  }else{info.style.opacity=0;info.style.pointerEvents="none";lastInfo=-1}
  pops.forEach((e,k)=>e.classList.toggle("on",r6>.5&&(posS-(NST-1))+.9>k*.2+.25));
+ moreEl.classList.toggle("on",r6>.5&&(posS-(NST-1))+.9>1.45);
  dotEls.forEach((e,k)=>e.classList.toggle("on",k===nearest));
  lpfShown+=(fcDom-lpfShown)*.2;
  $("#lpft").textContent="LPF "+(lpfShown>=1000?(lpfShown/1000).toFixed(1)+" kHz":Math.round(lpfShown)+" Hz");
