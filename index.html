@@ -114,8 +114,8 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 21</div>
-<iframe id="bv" src="assets/botinavision.html?v=21" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<div id="dbg"></div><div id="ver">build 22</div>
+<iframe id="bv" src="assets/botinavision.html?v=22" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -130,7 +130,7 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
   <div class="pop l p3"><span class="mono" data-k="s5k"></span><span data-k="s5v"></span></div>
   <div class="pop r p3"><span class="mono" data-k="s6k"></span><span><a href="mailto:hola@botina.co">hola@botina.co</a><br><a href="https://x.com/Botina" target="_blank" rel="noopener">X @Botina</a><br><a href="https://instagram.com/botina06" target="_blank" rel="noopener">IG @botina06</a></span></div>
   <p id="mf" data-k="mf"></p>
-  <p id="more" class="mono"><b data-k="mk"></b><a href="https://youtu.be/MpClhV_Hrkc" target="_blank" rel="noopener">Rêverie · 2020 ↗</a><a href="https://youtu.be/ftiZGQv5MJs" target="_blank" rel="noopener">Rêverie · Amore et Psiche autoremix ↗</a><a href="https://youtu.be/kX0hdI_XD_Y" target="_blank" rel="noopener">Flashback · 2019 ↗</a><a href="https://youtu.be/n8e_QutaUk4" target="_blank" rel="noopener">Caracas Club · 2019 ↗</a><a href="https://youtu.be/J7198uKp0qo" target="_blank" rel="noopener">Mama Kunk · Al despertar (remix) ↗</a><a href="https://rarible.com/botina/sale" target="_blank" rel="noopener">Animaciones NFT ↗</a><a href="https://www.youtube.com/user/botina1983" target="_blank" rel="noopener">YouTube ↗</a></p>
+  <p id="more" class="mono"><b data-k="mk"></b><a href="https://youtu.be/MpClhV_Hrkc" target="_blank" rel="noopener">Rêverie · 2020 ↗</a><a href="https://youtu.be/ftiZGQv5MJs" target="_blank" rel="noopener">Rêverie · Amore et Psiche autoremix ↗</a><a href="https://youtu.be/kX0hdI_XD_Y" target="_blank" rel="noopener">Flashback · 2019 ↗</a><a href="https://youtu.be/n8e_QutaUk4" target="_blank" rel="noopener">Caracas Club · 2019 ↗</a><a href="https://youtu.be/J7198uKp0qo" target="_blank" rel="noopener">Mama Kunk · Al despertar (remix) ↗</a><a href="https://rarible.com/botina/sale" target="_blank" rel="noopener">Animaciones NFT ↗</a><a href="https://www.youtube.com/@botina06/playlists" target="_blank" rel="noopener">Playlists en YouTube ↗</a></p>
  </div>
  <div id="info"><div class="n mono"></div><h2></h2><p></p><div class="aw mono"></div><a target="_blank" rel="noopener" hidden></a></div>
  <div id="lpf" class="mono"><span id="lpft">LPF</span><i><u id="lpfb"></u></i></div>
@@ -154,7 +154,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search);
-const VER="21";window.__mob=mobile;
+const VER="22";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -431,7 +431,8 @@ $("#lang").onclick=()=>{lang=lang==="en"?"es":"en";applyLang()};
 $("#brand").onclick=e=>{e.preventDefault();scrollTo({top:0,behavior:"smooth"})};
 addEventListener("pagehide",()=>{try{if(ctx&&ctx.state!=="closed")ctx.close()}catch(e){}});
 ["pointerdown","touchend","keydown","wheel"].forEach(ev=>addEventListener(ev,()=>{if(ctx&&ctx.state!=="running"&&!document.hidden)ctx.resume().catch(()=>{})},{passive:true}));
-document.addEventListener("visibilitychange",()=>{if(!ctx)return;document.hidden?ctx.suspend():ctx.resume()});
+document.addEventListener("visibilitychange",()=>{try{if(document.hidden){(typeof vEls!=="undefined"?vEls:[]).forEach(v=>v&&v.pause&&v.pause());const sv=document.getElementById("scanv");sv&&sv.pause()}}catch(e){}if(!ctx)return;document.hidden?ctx.suspend():ctx.resume()});
+let lastOpen=0;document.getElementById("more").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;const t=Date.now();if(t-lastOpen<2500){e.preventDefault();return}lastOpen=t});
 addEventListener("resize",resize);
 document.documentElement.classList.add("lock");
 applyLang();resize();requestAnimationFrame(frame)
