@@ -114,8 +114,8 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 22</div>
-<iframe id="bv" src="assets/botinavision.html?v=22" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<div id="dbg"></div><div id="ver">build 23</div>
+<iframe id="bv" src="assets/botinavision.html?v=23" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -154,7 +154,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search);
-const VER="22";window.__mob=mobile;
+const VER="23";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -260,10 +260,12 @@ function placeFace(el){if(!CV.ok)return false;const sx=ST.sx,sz=ST.sz,y=-.35*(CV
 // one <video> per piece, loaded once by the browser itself and never re-sourced or torn down:
 // switching sources or destroying decoders is what stalls some Windows GPU drivers.
 const VQ=mobile?"-l":"-h";
-const vEls=P.map((p,i)=>{const v=mkVideo();v.poster="assets/"+p.id+".jpg?v="+VER;v.preload=(!mobile||i<2)?"auto":"metadata";v.src="assets/"+p.id+VQ+".mp4?v="+VER;v._off=9;v._synced=false;v._wt=-1;v._wtT=0;return v});
-const scanv=$("#scanv");scanv.preload=mobile?"metadata":"auto";scanv.src="assets/scan"+VQ+".mp4?v="+VER;
+const vEls=P.map((p,i)=>{const v=mkVideo();v.poster="assets/"+p.id+".jpg?v="+VER;v.preload=(!mobile||i<2)?"auto":"metadata";v._u="assets/"+p.id+VQ+".mp4?v="+VER;if(!mobile||i<2)fetchBlob(v,v._u);v._off=9;v._synced=false;v._wt=-1;v._wtT=0;return v});
+const scanv=$("#scanv");scanv.preload=mobile?"metadata":"auto";scanv._u="assets/scan"+VQ+".mp4?v="+VER;if(!mobile)fetchBlob(scanv,scanv._u);
 const GATE_V=mobile?[vEls[0],vEls[1]]:[...vEls,scanv];
-function vProg(v){if(v.readyState>=3)return 1;try{if(v.duration&&v.buffered.length)return Math.min(.97,v.buffered.end(v.buffered.length-1)/v.duration)}catch(e){}return 0}
+function fetchBlob(v,url){if(v._fb)return;v._fb=1;v._pr=0;
+ fetch(url).then(r=>{if(!r.ok)throw 0;const L=+r.headers.get("content-length")||0;if(!r.body||!L)return r.blob();const rd=r.body.getReader(),ch=[];let n=0;const pump=()=>rd.read().then(x=>{if(x.done)return new Blob(ch,{type:"video/mp4"});ch.push(x.value);n+=x.value.length;v._pr=Math.min(1,n/L);return pump()});return pump()}).then(b=>{v._pr=1;v._blob=1;v.src=URL.createObjectURL(b);try{v.load()}catch(e){}}).catch(()=>{v._blob=1;v.src=url;try{v.load()}catch(e){}})}
+function vProg(v){if(!v._blob)return v._fb?Math.min(.9,(v._pr||0)*.9):0;if(v.readyState>=3)return 1;try{if(v.duration&&v.buffered.length)return Math.min(.97,v.buffered.end(v.buffered.length-1)/v.duration)}catch(e){}return 0}
 
 let lite=false,dtE=1/60,slow=0;
 function resize(){layout()}
@@ -376,14 +378,15 @@ function tick(now){
  // the active piece's video is drawn on the plate's back face; the others just wait, paused
  const vi=Math.max(0,Math.min(N-1,Math.round(((window.__ph||0)-180)/360)));
  for(let i=0;i<N;i++){const v=vEls[i];
-  if(mobile&&v.preload!=="auto"&&Math.abs(qs-(i+1))<1.6){v.preload="auto";try{v.load()}catch(e){}}
+  if(mobile&&!v._fb&&Math.abs(qs-(i+1))<1.6)fetchBlob(v,v._u);
   const on=i===vi&&VA>.004&&placeFace(v),op=on?VA:0;if(v._op!==op){v.style.opacity=op.toFixed(3);v._op=op}
   if(on){v._off=0;
    if(v.paused&&!v._pl){v._pl=true;v.play().then(()=>{v._pl=false},()=>{v._pl=false})}
+   if(v.seeking||v.readyState<2){if(!v._bt)v._bt=now;else if(now-v._bt>2200&&(v._rt||0)<3&&v.currentSrc){v._rt=(v._rt||0)+1;v._bt=now;try{const u=v.currentSrc;v.pause();v.src=u;v.load();v._synced=false}catch(e){}}}else v._bt=0;
    if(!v._synced&&v.readyState>=1){try{v.currentTime=ck%v.duration||0}catch(e){}v._synced=true;v._wtT=now}
    if(!v.paused&&v.readyState>=2&&!v.seeking){if(v.currentTime!==v._wt){v._wt=v.currentTime;v._wtT=now}else if(now-v._wtT>2500){v._wtT=now;v.play().catch(()=>{})}}
   }else{v._off+=dt;if(v._off>.8&&!v.paused){v.pause();v._synced=false}}}
- if(mobile&&scanv.preload!=="auto"&&qs>NST-2.2){scanv.preload="auto";try{scanv.load()}catch(e){}}
+ if(mobile&&!scanv._fb&&qs>NST-2.2)fetchBlob(scanv,scanv._u);
  if(r6>.01){if(scanv.paused&&!scanv._pl){scanv._pl=true;scanv.play().then(()=>{scanv._pl=false}).catch(()=>{scanv._pl=false})}}else if(!scanv.paused)scanv.pause();
  scanv.style.opacity=r6;scanEl.style.opacity=r6>.01?1:0;
 
@@ -421,7 +424,7 @@ function gateTick(){if(gateOpen)return;gateT+=.1;
  $("#gbar").style.width=(gp*100).toFixed(1)+"%";
  const gt=$("#gate");gt.style.setProperty("--gb",(16*(1-gp)).toFixed(1)+"px");
  if(dn!==gDn){gDn=dn;const im=$("#gate img");im.classList.remove("gli");void im.offsetWidth;im.classList.add("gli")}
- const ready=(dn===GATE_V.length&&abDone>=N)||gateT>20;
+ const ready=(dn===GATE_V.length&&abDone>=N)||gateT>30;
  if(ready&&!gt.classList.contains("rdy")){gt.classList.add("rdy");$("#gpf").textContent=dn===GATE_V.length?"LPF 18.0 KHZ":$("#gpf").textContent;$("#gbar").style.width="100%";gt.style.setProperty("--gb","0px")}
  if(!ready)setTimeout(gateTick,100)}
 gateTick();
@@ -431,7 +434,7 @@ $("#lang").onclick=()=>{lang=lang==="en"?"es":"en";applyLang()};
 $("#brand").onclick=e=>{e.preventDefault();scrollTo({top:0,behavior:"smooth"})};
 addEventListener("pagehide",()=>{try{if(ctx&&ctx.state!=="closed")ctx.close()}catch(e){}});
 ["pointerdown","touchend","keydown","wheel"].forEach(ev=>addEventListener(ev,()=>{if(ctx&&ctx.state!=="running"&&!document.hidden)ctx.resume().catch(()=>{})},{passive:true}));
-document.addEventListener("visibilitychange",()=>{try{if(document.hidden){(typeof vEls!=="undefined"?vEls:[]).forEach(v=>v&&v.pause&&v.pause());const sv=document.getElementById("scanv");sv&&sv.pause()}}catch(e){}if(!ctx)return;document.hidden?ctx.suspend():ctx.resume()});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)[0,300,900,2000].forEach(d=>setTimeout(()=>{try{if(ctx&&ctx.state!=="running"&&ctx.state!=="closed")ctx.resume()}catch(e){}},d));try{if(document.hidden){(typeof vEls!=="undefined"?vEls:[]).forEach(v=>v&&v.pause&&v.pause());const sv=document.getElementById("scanv");sv&&sv.pause()}}catch(e){}if(!ctx)return;document.hidden?ctx.suspend():ctx.resume()});
 let lastOpen=0;document.getElementById("more").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;const t=Date.now();if(t-lastOpen<2500){e.preventDefault();return}lastOpen=t});
 addEventListener("resize",resize);
 document.documentElement.classList.add("lock");
