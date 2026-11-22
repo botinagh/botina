@@ -107,8 +107,8 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 19</div>
-<iframe id="bv" src="assets/botinavision.html?v=19" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<div id="dbg"></div><div id="ver">build 20</div>
+<iframe id="bv" src="assets/botinavision.html?v=20" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -146,12 +146,12 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search);
-const VER="19";window.__mob=mobile;
+const VER="20";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
 en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos and video art, mixed live inside a real-time 3D spectrogram.",cue:"Scroll down",cueM:"Swipe down",gate:"To explore the work, scroll down with your mouse wheel or swipe. The sound opens up and the spectrogram turns to reveal each piece. Best with headphones.",tune:"Tuning…",go:"Enter with sound",goq:"Enter silent",snd:"Sound",
- s1k:"Botina",s1v:"Music producer · audiovisual director · Pasto / New York",s2k:"Instrument",s2v:"Botinavision: real-time 3D that reacts to sound. This page runs on it.",s3k:"Awards",s3v:"1st place HUG × Transient Labs (NY) · Best music video, Pasto Int'l Film Festival · Honorable mention, Festival de la Imagen",s4k:"Shown at",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month Paris · Crypto Art Seoul · Rinascente Milan · Cinemateca de Bogotá",s5k:"Music & press",s5v:"Single “Y”, LOVESEXDANCE Records, Milan · “Rosario” featured in the Financial Times (2021)",s6k:"Say hi",mf:"“I choose to be forever free, forever human.”",
+ s1k:"Botina",s1v:"Music producer · audiovisual director · Pasto, Colombia",s2k:"Instrument",s2v:"Botinavision: real-time 3D that reacts to sound. This page runs on it.",s3k:"Awards",s3v:"1st place HUG × Transient Labs (NY) · Best music video, Pasto Int'l Film Festival · Honorable mention, Festival de la Imagen",s4k:"Shown at",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month Paris · Crypto Art Seoul · Rinascente Milan · Cinemateca de Bogotá",s5k:"Music & press",s5v:"Single “Y”, LOVESEXDANCE Records, Milan · “Rosario” featured in the Financial Times (2021)",s6k:"Say hi",mf:"“I choose to be forever free, forever human.”",
  p:[
  {t:"Knock Out",m:"2025 · Music video · written, produced and directed by Botina",d:"Life as a fight. My own avatar, scanned with photogrammetry, walks through fire and through the instruments I make music with, until the colossal force that should crush him starts working in his favor.",w:"Best Music Video — Pasto International Film Festival · Official selection — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Watch full piece"},
  {t:"Tetrahedron",m:"2024 · 3D animation",d:"Fire element: the Galeras volcano rebuilt from satellite data, a dancer's motion capture and the voice of mezzo-soprano Consuelo López.",w:"Honorable mention — XX Festival de la Imagen · Shown at Cinemateca de Bogotá · Official selection — Pasto International Film Festival"},
@@ -160,7 +160,7 @@ en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos 
  {t:"Live",m:"Live set · LED jacket · Botinavision",d:"My own tracks mixed live, with the jacket and the visuals responding."}
  ]},
 es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte premiados, mezclados en vivo dentro de un espectrograma 3D en tiempo real.",cue:"Baja con la rueda del mouse",cueM:"Desliza hacia abajo",gate:"Para recorrer las obras, baja con la rueda del mouse o desliza. El sonido se abre y el espectrograma gira para mostrar cada pieza. Mejor con audífonos.",tune:"Afinando…",go:"Entrar con sonido",goq:"Entrar en silencio",snd:"Sonido",
- s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto / Nueva York",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mf:"«Elijo ser por siempre libre, por siempre humano.»",
+ s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mf:"«Elijo ser por siempre libre, por siempre humano.»",
  p:[
  {t:"Knock Out",m:"2025 · Videoclip · escrito, producido y dirigido por Botina",d:"La vida como una pelea. Mi propio avatar, escaneado con fotogrametría, atraviesa el fuego y los instrumentos con los que hago música, hasta que la fuerza colosal que debería aplastarlo empieza a trabajar a su favor.",w:"Mejor videoclip — Festival Internacional de Cine de Pasto · Selección oficial — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Ver la pieza completa"},
  {t:"Tetrahedron",m:"2024 · Animación 3D",d:"Elemento fuego: el volcán Galeras reconstruido con datos satelitales, la captura de movimiento de un bailarín y la voz de la mezzosoprano Consuelo López.",w:"Mención de honor — XX Festival de la Imagen · Exhibida en la Cinemateca de Bogotá · Selección oficial — Festival Internacional de Cine de Pasto"},
@@ -233,9 +233,9 @@ bv.addEventListener("load",hookBV);
 const binF=new Float32Array(2048);for(let k=0;k<2048;k++){const f=k*44100/4096;binF[k]=f<30||f>16000?-1:Math.log(f/30)/Math.log(16000/30)*NBAND}
 
 /* ---------- videos ---------- */
+let lastV=null;
 function mkVideo(){const v=document.createElement("video");v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute("playsinline","");v.setAttribute("muted","");v.preload="auto";v.disablePictureInPicture=true;
- v.style.cssText="position:fixed;left:0;top:0;width:1000px;height:1000px;opacity:0;pointer-events:none;z-index:-1;object-fit:fill;background:#06040c;transform-origin:0 0;will-change:transform,opacity";bv.after(v);return v}
-const pv=mkVideo();pv._i=-1;pv._tries=0;pv._synced=false;pv._wt=-1;pv._wtT=0;pv._off=0;
+ v.style.cssText="position:fixed;left:0;top:0;width:1000px;height:1000px;opacity:0;pointer-events:none;z-index:-1;object-fit:fill;background:#06040c;transform-origin:0 0;will-change:transform,opacity";(lastV||bv).after(v);lastV=v;return v}
 // project a point of the plate exactly as Botinavision's vertex shader does
 function proj(X,Y,Z){let c=Math.cos(CAM.yaw),s=Math.sin(CAM.yaw),x=X*c+Z*s,y=Y,z=-X*s+Z*c;
  c=Math.cos(CAM.pitch);s=Math.sin(CAM.pitch);const y2=y*c-z*s;z=y*s+z*c;y=y2;
@@ -247,21 +247,15 @@ function quad(p0,p1,p2,p3){const dx1=p1[0]-p2[0],dx2=p3[0]-p2[0],dx3=p0[0]-p1[0]
  const den=dx1*dy2-dx2*dy1;if(Math.abs(den)<1e-9)return null;const g=(dx3*dy2-dx2*dy3)/den,h=(dx1*dy3-dx3*dy1)/den;
  const a=p1[0]-p0[0]+g*p1[0],b=p3[0]-p0[0]+h*p3[0],d=p1[1]-p0[1]+g*p1[1],e=p3[1]-p0[1]+h*p3[1],S=1000;
  return"matrix3d("+[a/S,d/S,0,g/S,b/S,e/S,0,h/S,0,0,1,0,p0[0],p0[1],0,1].map(n=>+n.toFixed(6)).join(",")+")"}
-function placeFace(){if(!CV.ok)return false;const sx=ST.sx,sz=ST.sz,y=-.35*(CV.sy||1)-.006;
- const m=quad(proj(-sx,y,sz),proj(sx,y,sz),proj(sx,y,-sz),proj(-sx,y,-sz));if(!m)return false;pv.style.transform=m;return true}
-const vids=P.map(()=>({_src:false,_url:null,_t:0}));
-const PG={};const VQ=mobile?"-l":"-h";const SZ=mobile?{knockout:3507162,tetrahedron:2972359,prima:2611216,invisible:5657173,live:1492647,scan:1575789}:{knockout:6814485,tetrahedron:5253366,prima:4936771,invisible:7630424,live:2413107,scan:3393668};
-function loadVid(v,src,done,extra,key){v._src=true;v._t=performance.now();const isEl=typeof v.play==="function";let fin=false;const end=ok=>{if(!fin){fin=true;if(key)PG[key]=Object.assign(PG[key]||{},{d:1});if(!ok&&!isEl)v._src=false;done&&done()}};setTimeout(()=>end(!isEl?!!v._url:1),60000);
- if(isEl&&!v._lazy){v.addEventListener("loadeddata",()=>end(1),{once:true});v.addEventListener("error",()=>end(1),{once:true})}
- const url=src+"?v="+VER+(extra||"");
- fetch(url).then(async r=>{if(!r.ok)throw 0;const tot=+r.headers.get("content-length")||SZ[key]||0;if(!r.body||!r.body.getReader){return r.blob()}
-  const rd=r.body.getReader(),ch=[];let n=0;for(;;){const{done:d,value}=await rd.read();if(d)break;ch.push(value);n+=value.length;if(key)PG[key]={l:n,t:tot||n,d:0}}
-  return new Blob(ch,{type:"video/mp4"})}).then(b=>{if(v._url)try{URL.revokeObjectURL(v._url)}catch(e){}v._url=URL.createObjectURL(b);if(isEl&&!v._lazy){v.src=v._url;v.load()}else end(1)}).catch(()=>{if(isEl&&!v._lazy){v.src=url;v.load()}else end(0)})}
-const scanv=$("#scanv");scanv._src=false;scanv._lazy=true;
-const GATE_KEYS=mobile?["knockout","tetrahedron"]:["knockout","tetrahedron","prima","invisible","live","scan"];
-{const seq=[[vids[0],"knockout"],[vids[1],"tetrahedron"]];if(!mobile){for(let i=2;i<P.length;i++)seq.push([vids[i],P[i].id]);seq.push([scanv,"scan"])}
- let si=0,act=0;const CONC=mobile?2:3;
- const pump=()=>{while(act<CONC&&si<seq.length){const[v,key]=seq[si++];if(v._src)continue;act++;loadVid(v,"assets/"+key+VQ+".mp4",()=>{act--;pump()},null,key)}};pump()}
+function placeFace(el){if(!CV.ok)return false;const sx=ST.sx,sz=ST.sz,y=-.35*(CV.sy||1)-.006;
+ const m=quad(proj(-sx,y,sz),proj(sx,y,sz),proj(sx,y,-sz),proj(-sx,y,-sz));if(!m)return false;el.style.transform=m;return true}
+// one <video> per piece, loaded once by the browser itself and never re-sourced or torn down:
+// switching sources or destroying decoders is what stalls some Windows GPU drivers.
+const VQ=mobile?"-l":"-h";
+const vEls=P.map((p,i)=>{const v=mkVideo();v.poster="assets/"+p.id+".jpg?v="+VER;v.preload=(!mobile||i<2)?"auto":"metadata";v.src="assets/"+p.id+VQ+".mp4?v="+VER;v._off=9;v._synced=false;v._wt=-1;v._wtT=0;return v});
+const scanv=$("#scanv");scanv.preload=mobile?"metadata":"auto";scanv.src="assets/scan"+VQ+".mp4?v="+VER;
+const GATE_V=mobile?[vEls[0],vEls[1]]:[...vEls,scanv];
+function vProg(v){if(v.readyState>=3)return 1;try{if(v.duration&&v.buffered.length)return Math.min(.97,v.buffered.end(v.buffered.length-1)/v.duration)}catch(e){}return 0}
 
 let lite=false,dtE=1/60,slow=0;
 function resize(){layout()}
@@ -271,6 +265,7 @@ function rectFor(va){ // contain-fit, centred, in clip space
  if(va>asp){w=2*m;h=2*m*asp/va}else{h=2*m;w=2*m*va/asp}
  return [-w/2,-h/2,w/2,h/2];
 }
+
 
 /* ---------- audio ---------- */
 let ctx=null,master=null,muteG=null,analyser=null,nodes=[],audioOn=false,muted=true,t0=0,tp0=performance.now()/1000,silentEl=null;
@@ -366,25 +361,21 @@ function tick(now){
   const kc=1-.1325*sm(clamp(-sp));ST.sx=(A[0]+(B[0]-A[0])*wq)*kc;ST.sz=(A[1]+(B[1]-A[1])*wq)*kc;
   ST.u=sm(clamp((.35-Math.abs(sp))/.35))*.7;
   VA=vidA;bv.style.opacity=GLOST?"0":"1";
-  const cap=vidA>.985?3:(lite?30:60);if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
+  const cap=vidA>.995?15:(lite?30:60);if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
   window.__ph=ph}
  CAM.dof=0;bv.style.filter=r6>.02?'blur('+(r6*(mobile?8:12)).toFixed(1)+'px) brightness('+(1-.25*r6).toFixed(2)+')':'';
 
- // one video player: swapped while the plate is edge-on, drawn on the plate's back face
- {const vi=Math.max(0,Math.min(N-1,Math.round(((window.__ph||0)-180)/360))),h=vids[vi];
-  for(let i=0;i<N;i++){const q=vids[i];if(q._src||now-q._t<2500)continue;if(i===vi||(!mobile&&gateOpen)||(mobile&&Math.abs(qs-(i+1))<1.6))loadVid(q,"assets/"+P[i].id+VQ+".mp4",null,null,P[i].id)}
-  if(pv._i!==vi&&(VA<.02||pv._i<0)){pv._i=vi;pv._tries=0;pv._synced=false;pv._sw=now;pv.poster="assets/"+P[vi].id+".jpg?v="+VER;if(h._url){pv.src=h._url;pv.load()}else pv.removeAttribute("src")}
-  if(pv._i===vi&&!pv.getAttribute("src")&&h._url){pv.src=h._url;pv.load();pv._sw=now}
-  const on=VA>.004&&pv._i>=0&&placeFace(),op=on?VA:0;if(pv._op!==op){pv.style.opacity=op.toFixed(3);pv._op=op}
-  if(on){pv._off=0;
-   if(pv.paused&&!pv._pl&&pv.getAttribute("src")){pv._pl=true;pv.play().then(()=>{pv._pl=false},()=>{pv._pl=false})}
-   if(!pv._synced&&pv.readyState>=1){try{pv.currentTime=ck%30}catch(e){}pv._synced=true;pv._wtT=now}
-   if(pv.readyState<2&&now-pv._sw>6000&&pv._tries<1&&h._url){pv._tries++;pv._sw=now;pv.src=h._url;pv.load()}
-   if(!pv.paused&&pv.readyState>=2&&!pv.seeking){if(pv.currentTime!==pv._wt){pv._wt=pv.currentTime;pv._wtT=now}else if(now-pv._wtT>2500){pv._wtT=now;pv.play().catch(()=>{})}}
-  }else{pv._off+=dt;if(pv._off>.8&&!pv.paused){pv.pause();pv._synced=false}}}
- if(mobile&&qs>NST-2.2&&!scanv._src&&now-(scanv._t||0)>2500){loadVid(scanv,"assets/scan"+VQ+".mp4",null,null,"scan")}
- if(!scanv._src&&r6>.05&&now-(scanv._t||0)>2500)loadVid(scanv,"assets/scan"+VQ+".mp4",null,null,"scan");
- if(r6>.05&&scanv._url&&!scanv._on){scanv._on=true;scanv.src=scanv._url;scanv.load()}
+ // the active piece's video is drawn on the plate's back face; the others just wait, paused
+ const vi=Math.max(0,Math.min(N-1,Math.round(((window.__ph||0)-180)/360)));
+ for(let i=0;i<N;i++){const v=vEls[i];
+  if(mobile&&v.preload!=="auto"&&Math.abs(qs-(i+1))<1.6){v.preload="auto";try{v.load()}catch(e){}}
+  const on=i===vi&&VA>.004&&placeFace(v),op=on?VA:0;if(v._op!==op){v.style.opacity=op.toFixed(3);v._op=op}
+  if(on){v._off=0;
+   if(v.paused&&!v._pl){v._pl=true;v.play().then(()=>{v._pl=false},()=>{v._pl=false})}
+   if(!v._synced&&v.readyState>=1){try{v.currentTime=ck%v.duration||0}catch(e){}v._synced=true;v._wtT=now}
+   if(!v.paused&&v.readyState>=2&&!v.seeking){if(v.currentTime!==v._wt){v._wt=v.currentTime;v._wtT=now}else if(now-v._wtT>2500){v._wtT=now;v.play().catch(()=>{})}}
+  }else{v._off+=dt;if(v._off>.8&&!v.paused){v.pause();v._synced=false}}}
+ if(mobile&&scanv.preload!=="auto"&&qs>NST-2.2){scanv.preload="auto";try{scanv.load()}catch(e){}}
  if(r6>.01){if(scanv.paused&&!scanv._pl){scanv._pl=true;scanv.play().then(()=>{scanv._pl=false}).catch(()=>{scanv._pl=false})}}else if(!scanv.paused)scanv.pause();
  scanv.style.opacity=r6;scanEl.style.opacity=r6>.01?1:0;
 
@@ -403,7 +394,7 @@ function tick(now){
  lpfShown+=(fcDom-lpfShown)*.2;
  $("#lpft").textContent="LPF "+(lpfShown>=1000?(lpfShown/1000).toFixed(1)+" kHz":Math.round(lpfShown)+" Hz");
  $("#lpfb").style.width=(100*Math.log(lpfShown/CUT_LO)/Math.log(CUT_HI/CUT_LO)).toFixed(1)+"%";
-  if(DEBUG)dbg.textContent="fps "+(1/dtE).toFixed(0)+(lite?" LITE":"")+" q "+qs.toFixed(2)+" R "+R.toFixed(2)+" audio "+audioOn+" clk "+ck.toFixed(1)+" "+(ctx?ctx.state:"-")+(GLOST?" GL-LOST":"")+"\nplayer piece "+pv._i+" try"+pv._tries+" rs"+pv.readyState+(pv.paused?" P":" >")+" "+pv.videoWidth+"x"+pv.videoHeight+" t"+pv.currentTime.toFixed(1)+" vA "+VA.toFixed(2)+"\nblobs "+vids.map((q,i)=>P[i].id.slice(0,4)+(q._url?"✓":q._src?"…":"–")).join(" ")+" scan "+(scanv._url?"✓":"–")+(window.__err?"\nERR "+window.__err.slice(0,160):"");
+  if(DEBUG)dbg.textContent="fps "+(1/dtE).toFixed(0)+(lite?" LITE":"")+" q "+qs.toFixed(2)+" R "+R.toFixed(2)+" audio "+audioOn+" clk "+ck.toFixed(1)+" "+(ctx?ctx.state:"-")+(GLOST?" GL-LOST":"")+"\nvideo "+vi+" rs"+vEls[vi].readyState+(vEls[vi].paused?" P":" >")+" t"+vEls[vi].currentTime.toFixed(1)+" vA "+VA.toFixed(2)+" | ready "+vEls.map(v=>v.readyState).join("")+" scan "+scanv.readyState+(window.__err?"\nERR "+window.__err.slice(0,160):"");
 }
 
 /* ---------- boot ---------- */
@@ -414,22 +405,22 @@ async function enter(sound){if(entered)return;entered=true;
 }
 let gateOpen=false,gateT=0,gp=0,gDn=0;
 function gateTick(){if(gateOpen)return;gateT+=.1;
- let L=0,T=0,dn=0;for(const k of GATE_KEYS){const p=PG[k];const t=SZ[k];T+=t;if(p&&p.d){L+=t;dn++}else if(p&&p.t){L+=Math.min(.97,p.l/p.t)*t}}
- const tgt=T?L/T:0;gp+=(tgt-gp)*.35;if(dn===GATE_KEYS.length&&Math.abs(tgt-gp)<.02)gp=1;
+ let L=0,T=GATE_V.length,dn=0;for(const v of GATE_V){const p=vProg(v);L+=p;if(p>=1)dn++}
+ const tgt=T?L/T:0;gp+=(tgt-gp)*.35;if(dn===GATE_V.length&&Math.abs(tgt-gp)<.02)gp=1;
  const f=CUT_LO*Math.pow(CUT_HI/CUT_LO,gp);
  $("#gpf").textContent="LPF "+(f<1000?Math.round(f)+" HZ":(f/1000).toFixed(1)+" KHZ");
  $("#gbar").style.width=(gp*100).toFixed(1)+"%";
  const gt=$("#gate");gt.style.setProperty("--gb",(16*(1-gp)).toFixed(1)+"px");
  if(dn!==gDn){gDn=dn;const im=$("#gate img");im.classList.remove("gli");void im.offsetWidth;im.classList.add("gli")}
- const ready=(dn===GATE_KEYS.length&&abDone>=N)||gateT>20;
- if(ready&&!gt.classList.contains("rdy")){gt.classList.add("rdy");$("#gpf").textContent=dn===GATE_KEYS.length?"LPF 18.0 KHZ":$("#gpf").textContent;$("#gbar").style.width="100%";gt.style.setProperty("--gb","0px")}
+ const ready=(dn===GATE_V.length&&abDone>=N)||gateT>20;
+ if(ready&&!gt.classList.contains("rdy")){gt.classList.add("rdy");$("#gpf").textContent=dn===GATE_V.length?"LPF 18.0 KHZ":$("#gpf").textContent;$("#gbar").style.width="100%";gt.style.setProperty("--gb","0px")}
  if(!ready)setTimeout(gateTick,100)}
 gateTick();
 $("#go").onclick=()=>enter(true);$("#goq").onclick=()=>enter(false);
 $("#snd").onclick=()=>{if(!ctx||!muteG)return;muted=!muted;muteG.gain.setTargetAtTime(muted?0:1,ctx.currentTime,.03);$("#snd").classList.toggle("on",!muted);if(!muted&&silentEl)silentEl.play().catch(()=>{})};
 $("#lang").onclick=()=>{lang=lang==="en"?"es":"en";applyLang()};
 $("#brand").onclick=e=>{e.preventDefault();scrollTo({top:0,behavior:"smooth"})};
-const cleanup=()=>{try{pv.pause();pv.removeAttribute("src");pv.load();scanv.pause();scanv.removeAttribute("src");scanv.load();bv.src="about:blank";if(ctx&&ctx.state!=="closed")ctx.close()}catch(e){}};addEventListener("pagehide",cleanup);addEventListener("beforeunload",cleanup);
+addEventListener("pagehide",()=>{try{if(ctx&&ctx.state!=="closed")ctx.close()}catch(e){}});
 ["pointerdown","touchend","keydown","wheel"].forEach(ev=>addEventListener(ev,()=>{if(ctx&&ctx.state!=="running"&&!document.hidden)ctx.resume().catch(()=>{})},{passive:true}));
 document.addEventListener("visibilitychange",()=>{if(!ctx)return;document.hidden?ctx.suspend():ctx.resume()});
 addEventListener("resize",resize);
