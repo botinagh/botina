@@ -72,6 +72,8 @@ html.lock #hero,html.lock #cue,html.lock #info{visibility:hidden}
 #mf{position:absolute;left:50%;bottom:calc(var(--pad) + 108px);transform:translateX(-50%);width:min(560px,80vw);text-align:center;font-size:clamp(14px,1.6vw,19px);font-style:italic;color:var(--w);opacity:.85;text-shadow:0 2px 20px #000}
 #cue b{display:block;font-size:18px;margin-top:6px;animation:cueb 1.6s ease-in-out infinite}
 .pop a{color:var(--w)}
+.pop a.bvl{display:inline-block;margin-top:8px;padding:7px 12px;border:1px solid var(--c);color:var(--c);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}
+.pop a.bvl:hover{background:var(--c);color:#031018}
 #more{position:absolute;left:50%;bottom:var(--pad);transform:translateX(-50%) translateY(10px);width:min(780px,92vw);text-align:center;font-size:11px;line-height:2;opacity:0;transition:opacity .6s,transform .6s;text-shadow:0 2px 20px #000;pointer-events:none}
 #more.on{opacity:1;transform:translateX(-50%);pointer-events:auto}
 #more b{color:var(--c);font-weight:400;margin-right:6px}
@@ -114,8 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 23</div>
-<iframe id="bv" src="assets/botinavision.html?v=23" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<div id="dbg"></div><div id="ver">build 24</div>
+<script>(function(){try{const q=location.search,m=q.match(/[?&]perf=([012])/);let l=m?+m[1]:null;if(l===null){const c=document.createElement("canvas"),g=c.getContext("webgl")||c.getContext("experimental-webgl");let r="";if(g){const e=g.getExtension("WEBGL_debug_renderer_info");r=e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):"";const x=g.getExtension("WEBGL_lose_context");x&&x.loseContext()}window.__gpuName=r;l=/quadro|nvs|intel|mali|adreno|powervr|swiftshader|llvmpipe|\bgt ?\d{3}\b|gtx ?[5-9]\d\d\b/i.test(r)?2:0}localStorage.setItem("bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}))}catch(e){}})()</script>
+<iframe id="bv" src="assets/botinavision.html?v=24" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -124,13 +127,13 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
  <div id="hero"><img src="assets/botina-logo.webp" alt="Botina" width="606" height="125"><h1 data-k="h1"></h1><p data-k="h1p"></p></div>
  <div id="scan"><video id="scanv" muted loop playsinline preload="none" tabindex="-1"></video>
   <div class="pop l p1"><span class="mono" data-k="s1k"></span><span data-k="s1v"></span></div>
-  <div class="pop r p1"><span class="mono" data-k="s2k"></span><span data-k="s2v"></span></div>
+  <div class="pop r p1"><span class="mono" data-k="s2k"></span><span><span data-k="s2v"></span><br><a class="bvl" href="https://botinagh.github.io/botinavision/" target="_blank" rel="noopener" data-k="bvl"></a></span></div>
   <div class="pop l p2"><span class="mono" data-k="s3k"></span><span data-k="s3v"></span></div>
   <div class="pop r p2"><span class="mono" data-k="s4k"></span><span data-k="s4v"></span></div>
   <div class="pop l p3"><span class="mono" data-k="s5k"></span><span data-k="s5v"></span></div>
   <div class="pop r p3"><span class="mono" data-k="s6k"></span><span><a href="mailto:hola@botina.co">hola@botina.co</a><br><a href="https://x.com/Botina" target="_blank" rel="noopener">X @Botina</a><br><a href="https://instagram.com/botina06" target="_blank" rel="noopener">IG @botina06</a></span></div>
   <p id="mf" data-k="mf"></p>
-  <p id="more" class="mono"><b data-k="mk"></b><a href="https://youtu.be/MpClhV_Hrkc" target="_blank" rel="noopener">Rêverie · 2020 ↗</a><a href="https://youtu.be/ftiZGQv5MJs" target="_blank" rel="noopener">Rêverie · Amore et Psiche autoremix ↗</a><a href="https://youtu.be/kX0hdI_XD_Y" target="_blank" rel="noopener">Flashback · 2019 ↗</a><a href="https://youtu.be/n8e_QutaUk4" target="_blank" rel="noopener">Caracas Club · 2019 ↗</a><a href="https://youtu.be/J7198uKp0qo" target="_blank" rel="noopener">Mama Kunk · Al despertar (remix) ↗</a><a href="https://rarible.com/botina/sale" target="_blank" rel="noopener">Animaciones NFT ↗</a><a href="https://www.youtube.com/@botina06/playlists" target="_blank" rel="noopener">Playlists en YouTube ↗</a></p>
+  <p id="more" class="mono"><b data-k="mk"></b><a href="https://www.youtube.com/playlist?list=PLmdjwQjBT6jnJHY8ey0I8hZtues_sygyh" target="_blank" rel="noopener">Videoclips originales ↗</a><a href="https://www.youtube.com/playlist?list=PLOWHDWC18Ozs" target="_blank" rel="noopener">Arte digital ↗</a><a href="https://www.youtube.com/playlist?list=PLGsMlrG3zwtQ" target="_blank" rel="noopener">Realidad aumentada ↗</a><a href="https://www.youtube.com/playlist?list=PLd5tOkpxBuS0" target="_blank" rel="noopener">Botina IRL ↗</a><a href="https://botinagh.github.io/botinavision/" target="_blank" rel="noopener">Botinavision ↗</a></p>
  </div>
  <div id="info"><div class="n mono"></div><h2></h2><p></p><div class="aw mono"></div><a target="_blank" rel="noopener" hidden></a></div>
  <div id="lpf" class="mono"><span id="lpft">LPF</span><i><u id="lpfb"></u></i></div>
@@ -153,13 +156,13 @@ const $=s=>document.querySelector(s);
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
-const DEBUG=/debug/.test(location.search);
-const VER="23";window.__mob=mobile;
+const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search);
+const VER="24";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
 en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos and video art, mixed live inside a real-time 3D spectrogram.",cue:"Scroll down",cueM:"Swipe down",gate:"To explore the work, scroll down with your mouse wheel or swipe. The sound opens up and the spectrogram turns to reveal each piece. Best with headphones.",tune:"Tuning…",go:"Enter with sound",goq:"Enter silent",snd:"Sound",
- s1k:"Botina",s1v:"Music producer · audiovisual director · Pasto, Colombia",s2k:"Instrument",s2v:"Botinavision: real-time 3D that reacts to sound. This page runs on it.",s3k:"Awards",s3v:"1st place HUG × Transient Labs (NY) · Best music video, Pasto Int'l Film Festival · Honorable mention, Festival de la Imagen",s4k:"Shown at",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month Paris · Crypto Art Seoul · Rinascente Milan · Cinemateca de Bogotá",s5k:"Music & press",s5v:"Single “Y”, LOVESEXDANCE Records, Milan · “Rosario” featured in the Financial Times (2021)",s6k:"Say hi",mk:"More work",mf:"“I choose to be forever free, forever human.”",
+ s1k:"Botina",s1v:"Music producer · audiovisual director · Pasto, Colombia",s2k:"Instrument",s2v:"Botinavision: real-time 3D that reacts to sound. This page runs on it.",bvl:"Try Botinavision ↗",s3k:"Awards",s3v:"1st place HUG × Transient Labs (NY) · Best music video, Pasto Int'l Film Festival · Honorable mention, Festival de la Imagen",s4k:"Shown at",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month Paris · Crypto Art Seoul · Rinascente Milan · Cinemateca de Bogotá",s5k:"Music & press",s5v:"Single “Y”, LOVESEXDANCE Records, Milan · “Rosario” featured in the Financial Times (2021)",s6k:"Say hi",mk:"More work · playlists",mf:"“I choose to be forever free, forever human.”",
  p:[
  {t:"Knock Out",m:"2025 · Music video · written, produced and directed by Botina",d:"Life as a fight. My own avatar, scanned with photogrammetry, walks through fire and through the instruments I make music with, until the colossal force that should crush him starts working in his favor.",w:"Best Music Video — Pasto International Film Festival · Official selection — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Watch full piece"},
  {t:"Tetrahedron",m:"2024 · 3D animation",d:"Fire element: the Galeras volcano rebuilt from satellite data, a dancer's motion capture and the voice of mezzo-soprano Consuelo López.",w:"Honorable mention — XX Festival de la Imagen · Shown at Cinemateca de Bogotá · Official selection — Pasto International Film Festival"},
@@ -168,7 +171,7 @@ en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos 
  {t:"Live",m:"Live set · LED jacket · Botinavision",d:"My own tracks mixed live, with the jacket and the visuals responding."}
  ]},
 es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte premiados, mezclados en vivo dentro de un espectrograma 3D en tiempo real.",cue:"Baja con la rueda del mouse",cueM:"Desliza hacia abajo",gate:"Para recorrer las obras, baja con la rueda del mouse o desliza. El sonido se abre y el espectrograma gira para mostrar cada pieza. Mejor con audífonos.",tune:"Afinando…",go:"Entrar con sonido",goq:"Entrar en silencio",snd:"Sonido",
- s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mk:"Otras obras",mf:"«Elijo ser por siempre libre, por siempre humano.»",
+ s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",bvl:"Probar Botinavision ↗",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mk:"Otras obras · playlists",mf:"«Elijo ser por siempre libre, por siempre humano.»",
  p:[
  {t:"Knock Out",m:"2025 · Videoclip · escrito, producido y dirigido por Botina",d:"La vida como una pelea. Mi propio avatar, escaneado con fotogrametría, atraviesa el fuego y los instrumentos con los que hago música, hasta que la fuerza colosal que debería aplastarlo empieza a trabajar a su favor.",w:"Mejor videoclip — Festival Internacional de Cine de Pasto · Selección oficial — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Ver la pieza completa"},
  {t:"Tetrahedron",m:"2024 · Animación 3D",d:"Elemento fuego: el volcán Galeras reconstruido con datos satelitales, la captura de movimiento de un bailarín y la voz de la mezzosoprano Consuelo López.",w:"Mención de honor — XX Festival de la Imagen · Exhibida en la Cinemateca de Bogotá · Selección oficial — Festival Internacional de Cine de Pasto"},
@@ -260,9 +263,9 @@ function placeFace(el){if(!CV.ok)return false;const sx=ST.sx,sz=ST.sz,y=-.35*(CV
 // one <video> per piece, loaded once by the browser itself and never re-sourced or torn down:
 // switching sources or destroying decoders is what stalls some Windows GPU drivers.
 const VQ=mobile?"-l":"-h";
-const vEls=P.map((p,i)=>{const v=mkVideo();v.poster="assets/"+p.id+".jpg?v="+VER;v.preload=(!mobile||i<2)?"auto":"metadata";v._u="assets/"+p.id+VQ+".mp4?v="+VER;if(!mobile||i<2)fetchBlob(v,v._u);v._off=9;v._synced=false;v._wt=-1;v._wtT=0;return v});
-const scanv=$("#scanv");scanv.preload=mobile?"metadata":"auto";scanv._u="assets/scan"+VQ+".mp4?v="+VER;if(!mobile)fetchBlob(scanv,scanv._u);
-const GATE_V=mobile?[vEls[0],vEls[1]]:[...vEls,scanv];
+const vEls=P.map((p,i)=>{const v=mkVideo();v.poster="assets/"+p.id+".jpg?v="+VER;v.preload=(!mobile||i<2)?"auto":"metadata";v._u="assets/"+p.id+VQ+".mp4?v="+VER;if(!NOV&&(!mobile||i<2))fetchBlob(v,v._u);v._off=9;v._synced=false;v._wt=-1;v._wtT=0;return v});
+const scanv=$("#scanv");scanv.preload=mobile?"metadata":"auto";scanv._u="assets/scan"+VQ+".mp4?v="+VER;if(!NOV&&!mobile)fetchBlob(scanv,scanv._u);
+const GATE_V=NOV?[]:mobile?[vEls[0],vEls[1]]:[...vEls,scanv];
 function fetchBlob(v,url){if(v._fb)return;v._fb=1;v._pr=0;
  fetch(url).then(r=>{if(!r.ok)throw 0;const L=+r.headers.get("content-length")||0;if(!r.body||!L)return r.blob();const rd=r.body.getReader(),ch=[];let n=0;const pump=()=>rd.read().then(x=>{if(x.done)return new Blob(ch,{type:"video/mp4"});ch.push(x.value);n+=x.value.length;v._pr=Math.min(1,n/L);return pump()});return pump()}).then(b=>{v._pr=1;v._blob=1;v.src=URL.createObjectURL(b);try{v.load()}catch(e){}}).catch(()=>{v._blob=1;v.src=url;try{v.load()}catch(e){}})}
 function vProg(v){if(!v._blob)return v._fb?Math.min(.9,(v._pr||0)*.9):0;if(v.readyState>=3)return 1;try{if(v.duration&&v.buffered.length)return Math.min(.97,v.buffered.end(v.buffered.length-1)/v.duration)}catch(e){}return 0}
@@ -367,11 +370,11 @@ function tick(now){
   const K=.572*Math.min(innerWidth,innerHeight),ZP=1.3;
   const rcI=i=>{const r=rectFor(P[i].va);return[(r[2]-r[0])/2*innerWidth/(K*ZP),(r[3]-r[1])/2*innerHeight/(K*ZP)]};
   const A=rcI(Math.max(0,Math.min(4,m-1))),B=rcI(Math.max(0,Math.min(4,m))),wq=clamp((t+90)/180);
-  const sp=Math.sin(CAM.pitch),vidA=m>=5&&at<90?0:sm(clamp((-sp-.02)/.22)),meshA=1-vidA;
+  const sp=Math.sin(CAM.pitch),vidA=NOV||(m>=5&&at<90)?0:sm(clamp((-sp-.02)/.22)),meshA=1-vidA;
   const kc=1-.1325*sm(clamp(-sp));ST.sx=(A[0]+(B[0]-A[0])*wq)*kc;ST.sz=(A[1]+(B[1]-A[1])*wq)*kc;
   ST.u=sm(clamp((.35-Math.abs(sp))/.35))*.7;
-  VA=vidA;bv.style.opacity=GLOST?"0":"1";
-  const cap=vidA>.995?15:(lite?30:60);if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
+  VA=NOV?0:vidA;bv.style.opacity=GLOST?"0":"1";
+  const cap=vidA>.995?8:vidA>.02?(lite?20:30):(lite?30:60);if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
   window.__ph=ph}
  CAM.dof=0;bv.style.filter=r6>.02?'blur('+(r6*(mobile?8:12)).toFixed(1)+'px) brightness('+(1-.25*r6).toFixed(2)+')':'';
 
@@ -406,7 +409,7 @@ function tick(now){
  lpfShown+=(fcDom-lpfShown)*.2;
  $("#lpft").textContent="LPF "+(lpfShown>=1000?(lpfShown/1000).toFixed(1)+" kHz":Math.round(lpfShown)+" Hz");
  $("#lpfb").style.width=(100*Math.log(lpfShown/CUT_LO)/Math.log(CUT_HI/CUT_LO)).toFixed(1)+"%";
-  if(DEBUG)dbg.textContent="fps "+(1/dtE).toFixed(0)+(lite?" LITE":"")+" q "+qs.toFixed(2)+" R "+R.toFixed(2)+" audio "+audioOn+" clk "+ck.toFixed(1)+" "+(ctx?ctx.state:"-")+(GLOST?" GL-LOST":"")+"\nvideo "+vi+" rs"+vEls[vi].readyState+(vEls[vi].paused?" P":" >")+" t"+vEls[vi].currentTime.toFixed(1)+" vA "+VA.toFixed(2)+" | ready "+vEls.map(v=>v.readyState).join("")+" scan "+scanv.readyState+(window.__err?"\nERR "+window.__err.slice(0,160):"");
+  if(DEBUG)dbg.textContent=(window.__gpuName||"")+" | fps "+(1/dtE).toFixed(0)+(lite?" LITE":"")+" q "+qs.toFixed(2)+" R "+R.toFixed(2)+" audio "+audioOn+" clk "+ck.toFixed(1)+" "+(ctx?ctx.state:"-")+(GLOST?" GL-LOST":"")+"\nvideo "+vi+" rs"+vEls[vi].readyState+(vEls[vi].paused?" P":" >")+" t"+vEls[vi].currentTime.toFixed(1)+" vA "+VA.toFixed(2)+" | ready "+vEls.map(v=>v.readyState).join("")+" scan "+scanv.readyState+(window.__err?"\nERR "+window.__err.slice(0,160):"");
 }
 
 /* ---------- boot ---------- */
