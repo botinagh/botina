@@ -1,0 +1,6 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Prueba 1 · solo 3D</title>
+<style>html,body{margin:0;height:100%;background:#000;color:#e8f4f8;font:16px system-ui;overflow:hidden}iframe{position:fixed;inset:0;width:100%;height:100%;border:0}#p{position:fixed;left:24px;bottom:24px;max-width:520px;background:rgba(0,0,0,.7);padding:16px}a{color:#19d4ff}</style></head><body>
+<iframe id="bv" src="assets/bvlite.html?v=t1"></iframe>
+<div id="p"><b>Prueba 1 · solo el espectrograma 3D</b> (sin videos ni audio).<br>1) Selecciona este texto. 2) Agranda la ventana arrastrando el borde. 3) <a href="bv.html" target="_blank" rel="noopener">Abre una pestaña nueva</a>.<br>¿Se traba el navegador?</div>
+<script>const bv=document.getElementById('bv');const f=new Uint8Array(2048);let t=0;bv.addEventListener('load',()=>{const w=bv.contentWindow;w.__feed=f;w.__feedSR=44100;w.__fpsCap=40});
+(function g(){t+=.016;for(let i=0;i<2048;i++)f[i]=Math.max(0,Math.min(255,160*Math.exp(-i/180)*(1+.5*Math.sin(t*3+i*.05))+40*Math.random()*Math.exp(-i/400)));requestAnimationFrame(g)})();</script></body></html>
