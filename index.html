@@ -36,7 +36,7 @@ body{background:transparent;color:var(--w);font-family:Geist,system-ui,sans-seri
 #brand{top:var(--pad);left:var(--pad);color:var(--w);text-decoration:none}
 #brand b{color:var(--c);font-weight:500}
 #ctl{top:var(--pad);right:var(--pad);display:flex;gap:6px}
-#ctl button{background:rgba(0,0,0,.45);color:var(--w);border:1px solid rgba(232,244,248,.22);padding:8px 10px;cursor:pointer;font:inherit;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+#ctl button{background:rgba(3,5,9,.72);color:var(--w);border:1px solid rgba(232,244,248,.22);padding:8px 10px;cursor:pointer;font:inherit}
 #ctl button:hover,#ctl button.on{border-color:var(--c);color:var(--c)}
 #lpf{right:var(--pad);bottom:var(--pad);text-align:right;color:var(--d)}
 #lpf i{display:block;margin-top:8px;height:2px;width:140px;margin-left:auto;background:rgba(232,244,248,.18);position:relative}
@@ -61,7 +61,8 @@ html.lock #hero,html.lock #cue,html.lock #info{visibility:hidden}
 #cue::after{content:"";display:block;width:1px;height:38px;margin:10px auto 0;background:linear-gradient(var(--c),transparent);animation:cue 1.8s ease-in-out infinite}
 @keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 #scan{inset:0;pointer-events:none;opacity:0}
-#scan video{position:absolute;left:50%;top:50%;width:min(74vh,56vw);height:min(74vh,56vw);transform:translate(-50%,-50%);object-fit:cover;opacity:0;-webkit-mask-image:radial-gradient(circle,#000 58%,transparent 72%);mask-image:radial-gradient(circle,#000 58%,transparent 72%)}
+#scan video{position:absolute;left:50%;top:50%;width:min(74vh,56vw);height:min(74vh,56vw);transform:translate(-50%,-50%);object-fit:cover;opacity:0;border-radius:50%}
+#scan::after{content:"";position:absolute;left:50%;top:50%;width:min(74vh,56vw);height:min(74vh,56vw);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,transparent 56%,rgba(4,6,10,.92) 71%);pointer-events:none}
 .pop{position:absolute;width:min(250px,28vw);opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s;text-shadow:0 2px 20px #000}
 .pop.on{opacity:1;transform:none}
 .pop .mono{color:var(--c);display:block;margin-bottom:6px}
@@ -95,7 +96,7 @@ html.lock #hero,html.lock #cue,html.lock #info{visibility:hidden}
  #info{bottom:calc(var(--pad) + 8px);max-width:calc(100vw - 2*var(--pad) - 20px)}
  #dots{right:2px}
 }
-#gate{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:radial-gradient(ellipse at 50% 60%,rgba(0,0,0,.35),rgba(0,0,0,.82));text-align:center;padding:var(--pad);transition:opacity .9s}
+#gate{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:radial-gradient(ellipse at 50% 60%,rgba(3,5,9,.62),rgba(3,5,9,.92));text-align:center;padding:var(--pad);transition:opacity .9s}
 #gate.rdy .row{opacity:1;pointer-events:auto}
 #gate.rdy #gl2 [data-k=tune]{opacity:0}
 #gl2{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(70vw,360px);color:var(--c);font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.16em}
@@ -107,7 +108,7 @@ html.lock #hero,html.lock #cue,html.lock #info{visibility:hidden}
 #gate.off{opacity:0;pointer-events:none}
 #gate img{width:min(66vw,400px);height:auto}
 #gate p{color:var(--d);max-width:38ch;font-size:14px;line-height:1.5}
-#gate{--gb:16px;backdrop-filter:blur(var(--gb));-webkit-backdrop-filter:blur(var(--gb));transition:opacity .9s,backdrop-filter .9s}
+#gate{transition:opacity .9s}
 #gate .row{opacity:0;pointer-events:none;transition:opacity .7s;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 #gate button{font:inherit;cursor:pointer;padding:14px 22px;border:1px solid var(--c);background:transparent;color:var(--w)}
 #gate button.p{background:var(--c);color:#001018;font-weight:600}
@@ -116,7 +117,7 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 38</div>
+<div id="dbg"></div><div id="ver">build 39</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");L.removeItem("emb:bviz_th");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
 <iframe id="bv" src="assets/bvlite.html?v=35" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
 <div id="dim" style="position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:-1"></div><div id="vig"></div>
@@ -158,7 +159,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),NOBV=/[?&]nobv\b/.test(location.search),FLAT=NOBV||/[?&]flat\b/.test(location.search);
-const VER="38";window.__mob=mobile;
+const VER="39";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -166,18 +167,18 @@ en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos 
  s1k:"Botina",s1v:"Music producer · audiovisual director · Pasto, Colombia",s2k:"Instrument",s2v:"Botinavision: real-time 3D that reacts to sound. This page runs on it.",bvl:"Try Botinavision ↗",s3k:"Awards",s3v:"1st place HUG × Transient Labs (NY) · Best music video, Pasto Int'l Film Festival · Honorable mention, Festival de la Imagen",s4k:"Shown at",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month Paris · Crypto Art Seoul · Rinascente Milan · Cinemateca de Bogotá",s5k:"Music & press",s5v:"Single “Y”, LOVESEXDANCE Records, Milan · “Rosario” featured in the Financial Times (2021)",s6k:"Say hi",mk:"More work · playlists",pl3:"Augmented reality",pl2:"Digital art",pl1:"Original music videos",mf:"“I choose to be forever free, forever human.”",
  p:[
  {t:"Knock Out",m:"2025 · Music video · written, produced and directed by Botina",d:"Life as a fight. My own avatar, scanned with photogrammetry, walks through fire and through the instruments I make music with, until the colossal force that should crush him starts working in his favor.",w:"Best Music Video — Pasto International Film Festival · Official selection — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Watch full piece"},
- {t:"Tetrahedron",m:"2024 · 3D animation",d:"Fire element: the Galeras volcano rebuilt from satellite data, a dancer's motion capture and the voice of mezzo-soprano Consuelo López.",w:"Honorable mention — XX Festival de la Imagen · Shown at Cinemateca de Bogotá · Official selection — Pasto International Film Festival"},
+ {t:"Tetrahedron",m:"2024 · 3D animation",d:"Fire and its powerful voice, inside the body of a sleeping volcano, reveal the truths of life beyond body and matter, in an animation made with the real geography of the Galeras volcano, built from satellite data, and the motion capture of a classical dancer.",w:"Honorable mention — XX Festival de la Imagen · Shown at Cinemateca de Bogotá · Official selection — Pasto International Film Festival"},
  {t:"Prima Materia",m:"2023 · Dynamic artwork · with Roeleke",d:"A journey through the seven chakras: each one a sphere with its own color, musical key, cymatics and sound.",w:"1st place — HUG × Transient Labs Innovation Lab · Shown at the Oculus Gallery, New York",l:"https://youtu.be/TFXXs81ukmY",lt:"Watch full piece"},
- {t:"Invisible",m:"2022 · Video",d:"In war you are told to hide; this invisible dancer dances instead. Amid the ruins remains what no bomb can destroy: faith, hope, love, dreams and memory. Its flag carries Ukraine's blue and yellow, the sky and the sun of any country.",w:"Exhibited — Digital Art Month, Paris (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Watch full piece"},
+ {t:"Invisible",m:"2022 · Video",d:"In war, to stay alive you must take shelter, but faith, hope, love, dreams and memory dodge the bullets with grace, for they cannot be destroyed. Its flag carries Ukraine's blue and yellow: the sky and the sun of any country.",w:"Exhibited — Digital Art Month, Paris (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Watch full piece"},
  {t:"Live",m:"Live set · LED jacket · Botinavision",d:"Mixing my original songs live while I control the LED jacket and Botinavision's visuals in real time."}
  ]},
 es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte premiados, mezclados en vivo dentro de un espectrograma 3D en tiempo real.",cue:"Baja con la rueda del mouse",cueM:"Desliza hacia abajo",gate:"Para recorrer las obras, baja con la rueda del mouse o desliza. El sonido se abre y el espectrograma gira para mostrar cada pieza. Mejor con audífonos.",tune:"Afinando…",go:"Entrar con sonido",goq:"Entrar en silencio",snd:"Sonido",
  s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",bvl:"Probar Botinavision ↗",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mk:"Otras obras · playlists",pl3:"Realidad aumentada",pl2:"Arte digital",pl1:"Videoclips originales",mf:"«Elijo ser por siempre libre, por siempre humano.»",
  p:[
  {t:"Knock Out",m:"2025 · Videoclip · escrito, producido y dirigido por Botina",d:"La vida como una pelea. Mi propio avatar, escaneado con fotogrametría, atraviesa el fuego y los instrumentos con los que hago música, hasta que la fuerza colosal que debería aplastarlo empieza a trabajar a su favor.",w:"Mejor videoclip — Festival Internacional de Cine de Pasto · Selección oficial — VAM (Chile), MUVIC Fest",l:"https://youtu.be/UAib7p9CRFw",lt:"Ver la pieza completa"},
- {t:"Tetrahedron",m:"2024 · Animación 3D",d:"Elemento fuego: el volcán Galeras reconstruido con datos satelitales, la captura de movimiento de un bailarín y la voz de la mezzosoprano Consuelo López.",w:"Mención de honor — XX Festival de la Imagen · Exhibida en la Cinemateca de Bogotá · Selección oficial — Festival Internacional de Cine de Pasto"},
+ {t:"Tetrahedron",m:"2024 · Animación 3D",d:"El fuego y su voz poderosa, en el cuerpo de un volcán dormido, revelan las verdades de la vida más allá del cuerpo y la materia, en una animación hecha con la geografía real del volcán Galeras, construida con datos satelitales, y captura de movimiento de un bailarín clásico.",w:"Mención de honor — XX Festival de la Imagen · Exhibida en la Cinemateca de Bogotá · Selección oficial — Festival Internacional de Cine de Pasto"},
  {t:"Prima Materia",m:"2023 · Obra dinámica · con Roeleke",d:"Un viaje por los siete chakras: cada uno es una esfera con su color, su tonalidad musical, su cimática y su sonido.",w:"Primer lugar — HUG × Transient Labs Innovation Lab · Exhibida en la Oculus Gallery, Nueva York",l:"https://youtu.be/TFXXs81ukmY",lt:"Ver la pieza completa"},
- {t:"Invisible",m:"2022 · Video",d:"En la guerra te ordenan esconderte; este bailarín invisible baila. Entre los escombros queda lo que ninguna bomba destruye: la fe, la esperanza, el amor, los sueños y la memoria. Su bandera lleva el azul y el amarillo de Ucrania: el cielo y el sol de cualquier país.",w:"Exhibida — Digital Art Month, París (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Ver la pieza completa"},
+ {t:"Invisible",m:"2022 · Video",d:"En la guerra, para no morir, hay que refugiarse, pero la fe, la esperanza, el amor, los sueños y la memoria esquivan las balas con gracia, pues son cosas que no se pueden destruir. Su bandera lleva el azul y el amarillo de Ucrania: el cielo y el sol de cualquier país.",w:"Exhibida — Digital Art Month, París (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Ver la pieza completa"},
  {t:"Live",m:"Set en vivo · chaqueta LED · Botinavision",d:"Mezclo en vivo mis canciones originales mientras controlo, en tiempo real, la chaqueta LED y los visuales de Botinavision."}
  ]}
 };
@@ -426,7 +427,7 @@ function tick(now){
 /* ---------- boot ---------- */
 let entered=false;
 async function enter(sound){if(entered)return;entered=true;
- gateOpen=true;$("#gate").style.setProperty("--gb","0px");$("#gate").classList.add("off");document.documentElement.classList.remove("lock");$("#ver").style.opacity=.0;
+ gateOpen=true;$("#gate").style.setProperty("--gb","0px");$("#gate").classList.add("off");setTimeout(()=>{$("#gate").style.display="none"},1000);document.documentElement.classList.remove("lock");$("#ver").style.opacity=.0;
  try{await startAudio(sound);$("#snd").classList.toggle("on",!muted)}catch(e){console.warn("audio",e)}
 }
 let gateOpen=false,gateT=0,gp=0,gDn=0;
