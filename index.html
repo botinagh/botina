@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 24</div>
-<script>(function(){try{const q=location.search,m=q.match(/[?&]perf=([012])/);let l=m?+m[1]:null;if(l===null){const c=document.createElement("canvas"),g=c.getContext("webgl")||c.getContext("experimental-webgl");let r="";if(g){const e=g.getExtension("WEBGL_debug_renderer_info");r=e?g.getParameter(e.UNMASKED_RENDERER_WEBGL):"";const x=g.getExtension("WEBGL_lose_context");x&&x.loseContext()}window.__gpuName=r;l=/quadro|nvs|intel|mali|adreno|powervr|swiftshader|llvmpipe|\bgt ?\d{3}\b|gtx ?[5-9]\d\d\b/i.test(r)?2:0}localStorage.setItem("bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}))}catch(e){}})()</script>
-<iframe id="bv" src="assets/botinavision.html?v=24" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<div id="dbg"></div><div id="ver">build 25</div>
+<script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);if(m)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][+m[1]],lvl:+m[1]}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
+<iframe id="bv" src="assets/botinavision.html?v=25" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -156,8 +156,8 @@ const $=s=>document.querySelector(s);
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
-const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search);
-const VER="24";window.__mob=mobile;
+const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),FLAT=/[?&]flat\b/.test(location.search);
+const VER="25";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -246,7 +246,7 @@ const binF=new Float32Array(2048);for(let k=0;k<2048;k++){const f=k*44100/4096;b
 /* ---------- videos ---------- */
 let lastV=null;
 function mkVideo(){const v=document.createElement("video");v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute("playsinline","");v.setAttribute("muted","");v.preload="auto";v.disablePictureInPicture=true;
- v.style.cssText="position:fixed;left:0;top:0;width:1000px;height:1000px;opacity:0;pointer-events:none;z-index:-1;object-fit:fill;background:#06040c;transform-origin:0 0;will-change:transform,opacity";(lastV||bv).after(v);lastV=v;return v}
+ v.style.cssText="position:fixed;left:0;top:0;width:1000px;height:1000px;opacity:0;visibility:hidden;pointer-events:none;z-index:-1;object-fit:fill;background:#06040c;transform-origin:0 0";(lastV||bv).after(v);lastV=v;return v}
 // project a point of the plate exactly as Botinavision's vertex shader does
 function proj(X,Y,Z){let c=Math.cos(CAM.yaw),s=Math.sin(CAM.yaw),x=X*c+Z*s,y=Y,z=-X*s+Z*c;
  c=Math.cos(CAM.pitch);s=Math.sin(CAM.pitch);const y2=y*c-z*s;z=y*s+z*c;y=y2;
@@ -258,6 +258,7 @@ function quad(p0,p1,p2,p3){const dx1=p1[0]-p2[0],dx2=p3[0]-p2[0],dx3=p0[0]-p1[0]
  const den=dx1*dy2-dx2*dy1;if(Math.abs(den)<1e-9)return null;const g=(dx3*dy2-dx2*dy3)/den,h=(dx1*dy3-dx3*dy1)/den;
  const a=p1[0]-p0[0]+g*p1[0],b=p3[0]-p0[0]+h*p3[0],d=p1[1]-p0[1]+g*p1[1],e=p3[1]-p0[1]+h*p3[1],S=1000;
  return"matrix3d("+[a/S,d/S,0,g/S,b/S,e/S,0,h/S,0,0,1,0,p0[0],p0[1],0,1].map(n=>+n.toFixed(6)).join(",")+")"}
+function flatFace(el){const vw=el.videoWidth||16,vh=el.videoHeight||9,k=Math.min(innerWidth*.62/vw,innerHeight*.72/vh),w=vw*k,hh=vh*k;el.style.transform="translate("+((innerWidth-w)/2).toFixed(1)+"px,"+((innerHeight-hh)/2).toFixed(1)+"px) scale("+(w/1000).toFixed(4)+","+(hh/1000).toFixed(4)+")";return true}
 function placeFace(el){if(!CV.ok)return false;const sx=ST.sx,sz=ST.sz,y=-.35*(CV.sy||1)-.006;
  const m=quad(proj(-sx,y,sz),proj(sx,y,sz),proj(sx,y,-sz),proj(-sx,y,-sz));if(!m)return false;el.style.transform=m;return true}
 // one <video> per piece, loaded once by the browser itself and never re-sourced or torn down:
@@ -376,13 +377,13 @@ function tick(now){
   VA=NOV?0:vidA;bv.style.opacity=GLOST?"0":"1";
   const cap=vidA>.995?8:vidA>.02?(lite?20:30):(lite?30:60);if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
   window.__ph=ph}
- CAM.dof=0;bv.style.filter=r6>.02?'blur('+(r6*(mobile?8:12)).toFixed(1)+'px) brightness('+(1-.25*r6).toFixed(2)+')':'';
+ CAM.dof=0;{const f=r6>.02?'brightness('+(1-.45*r6).toFixed(2)+')':'';if(bv._f!==f){bv.style.filter=f;bv._f=f}}
 
  // the active piece's video is drawn on the plate's back face; the others just wait, paused
  const vi=Math.max(0,Math.min(N-1,Math.round(((window.__ph||0)-180)/360)));
  for(let i=0;i<N;i++){const v=vEls[i];
   if(mobile&&!v._fb&&Math.abs(qs-(i+1))<1.6)fetchBlob(v,v._u);
-  const on=i===vi&&VA>.004&&placeFace(v),op=on?VA:0;if(v._op!==op){v.style.opacity=op.toFixed(3);v._op=op}
+  const on=i===vi&&VA>.004&&(FLAT?flatFace(v):placeFace(v)),op=on?VA:0;if(v._op!==op){v.style.opacity=op.toFixed(3);v.style.visibility=op>0?"visible":"hidden";v._op=op}
   if(on){v._off=0;
    if(v.paused&&!v._pl){v._pl=true;v.play().then(()=>{v._pl=false},()=>{v._pl=false})}
    if(v.seeking||v.readyState<2){if(!v._bt)v._bt=now;else if(now-v._bt>2200&&(v._rt||0)<3&&v.currentSrc){v._rt=(v._rt||0)+1;v._bt=now;try{const u=v.currentSrc;v.pause();v.src=u;v.load();v._synced=false}catch(e){}}}else v._bt=0;
