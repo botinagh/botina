@@ -117,9 +117,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 39</div>
+<div id="dbg"></div><div id="ver">build 40</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");L.removeItem("emb:bviz_th");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/bvlite.html?v=35" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
+<iframe id="bv" src="assets/bvlite.html?v=40" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
 <div id="dim" style="position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:-1"></div><div id="vig"></div>
 <div id="spacer"></div>
 
@@ -159,7 +159,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),NOBV=/[?&]nobv\b/.test(location.search),FLAT=NOBV||/[?&]flat\b/.test(location.search);
-const VER="39";window.__mob=mobile;
+const VER="40";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -248,7 +248,7 @@ const binF=new Float32Array(2048);for(let k=0;k<2048;k++){const f=k*44100/4096;b
 /* ---------- videos ---------- */
 let lastV=null;
 function mkVideo(){const v=document.createElement("video");v.muted=true;v.defaultMuted=true;v.loop=true;v.playsInline=true;v.setAttribute("playsinline","");v.setAttribute("muted","");v.preload="auto";v.disablePictureInPicture=true;
- v.style.cssText="position:fixed;left:0;top:0;width:1000px;height:1000px;opacity:0;visibility:hidden;pointer-events:none;z-index:-1;object-fit:fill;background:#06040c;transform-origin:0 0";(lastV||bv).after(v);lastV=v;return v}
+ v.style.cssText="position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none;z-index:-3";(lastV||bv).after(v);lastV=v;return v}
 // project a point of the plate exactly as Botinavision's vertex shader does
 function proj(X,Y,Z){let c=Math.cos(CAM.yaw),s=Math.sin(CAM.yaw),x=X*c+Z*s,y=Y,z=-X*s+Z*c;
  c=Math.cos(CAM.pitch);s=Math.sin(CAM.pitch);const y2=y*c-z*s;z=y*s+z*c;y=y2;
@@ -267,7 +267,7 @@ function placeFace(el){if(!CV.ok)return false;const sx=ST.sx,sz=ST.sz,y=-.35*(CV
 // switching sources or destroying decoders is what stalls some Windows GPU drivers.
 const VQ=mobile?"-l":"-h";
 const vEls=P.map((p,i)=>{const v=mkVideo();v.poster="assets/"+p.id+".jpg?v="+VER;v.preload=(!mobile||i<2)?"auto":"metadata";v._u="assets/"+p.id+VQ+".mp4?v="+VER;if(!NOV&&(!mobile||i<2))fetchBlob(v,v._u);v._off=9;v._synced=false;v._wt=-1;v._wtT=0;return v});
-const scanv=$("#scanv");scanv.preload=mobile?"metadata":"auto";scanv._u="assets/scan"+VQ+".mp4?v="+VER;if(!NOV&&!mobile)fetchBlob(scanv,scanv._u);
+const scanv=$("#scanv");scanv.style.cssText="position:fixed;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none;z-index:-3";document.body.appendChild(scanv);$("#scan").style.display="none";scanv.preload=mobile?"metadata":"auto";scanv._u="assets/scan"+VQ+".mp4?v="+VER;if(!NOV&&!mobile)fetchBlob(scanv,scanv._u);
 const GATE_V=NOV?[]:mobile?[vEls[0],vEls[1]]:[...vEls,scanv];
 function fetchBlob(v,url){if(v._fb)return;v._fb=1;v._pr=0;
  fetch(url).then(r=>{if(!r.ok)throw 0;const L=+r.headers.get("content-length")||0;if(!r.body||!L)return r.blob();const rd=r.body.getReader(),ch=[];let n=0;const pump=()=>rd.read().then(x=>{if(x.done)return new Blob(ch,{type:"video/mp4"});ch.push(x.value);n+=x.value.length;v._pr=Math.min(1,n/L);return pump()});return pump()}).then(b=>{v._pr=1;v._blob=1;v.src=URL.createObjectURL(b);try{v.load()}catch(e){}}).catch(()=>{v._blob=1;v.src=url;try{v.load()}catch(e){}})}
@@ -386,15 +386,16 @@ function tick(now){
   VA=NOV?0:vidA;bv.style.opacity=GLOST?"0":"1";
   const cap=vidA>.995?8:vidA>.02?(lite?20:30):(mobile?60:(lite?30:40));if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
   window.__ph=ph}
- CAM.dof=0;{const o=r6>.02?(.45*r6).toFixed(3):'0';if(bv._f!==o){$('#dim').style.opacity=o;bv._f=o}}
+ CAM.dof=0;
 
  // the active piece's video is drawn on the plate's back face; the others just wait, paused
  const vi=Math.max(0,Math.min(N-1,Math.round(((window.__ph||0)-180)/360)));
  {const d=posS-(window.__pp??posS);if(d>1e-4)window.__dir=1;else if(d<-1e-4)window.__dir=-1;window.__pp=posS}
  const pf=((window.__ph||0)-180)/360,scanAct=gateOpen&&(r6>.01||(VA<.01&&pf>N-1+.2&&(window.__dir??1)>=0)),nxt=VA>.01?vi:Math.max(0,Math.min(N-1,(window.__dir??1)>=0?Math.ceil(pf):Math.floor(pf)));
+ let vShow=null;
  for(let i=0;i<N;i++){const v=vEls[i];
   if(mobile&&!v._fb&&Math.abs(qs-(i+1))<1.6)fetchBlob(v,v._u);
-  const on=i===vi&&VA>.004&&(FLAT?flatFace(v):placeFace(v)),op=on?VA:0;if(v._op!==op){v.style.opacity=op.toFixed(3);v.style.visibility=op>0?"visible":"hidden";v._op=op}
+  const on=i===vi&&VA>.004;if(on)vShow=v;
   const act=gateOpen&&i===nxt&&!scanAct;
   if(act){v._off=0;
    if(v.paused&&!v._pl){v._pl=true;v.play().then(()=>{v._pl=false},()=>{v._pl=false})}
@@ -403,7 +404,7 @@ function tick(now){
   }else if(!v.paused&&(v._warm||gateOpen)){v.pause();v._synced=false}}
  if(mobile&&!scanv._fb&&qs>NST-2.2)fetchBlob(scanv,scanv._u);
  if(scanAct){if(scanv.paused&&!scanv._pl){scanv._pl=true;scanv.play().then(()=>{scanv._pl=false}).catch(()=>{scanv._pl=false})}}else if(!scanv.paused&&(scanv._warm||gateOpen))scanv.pause();
- scanv.style.opacity=r6;scanEl.style.opacity=r6>.01?1:0;
+ try{const w=bv.contentWindow;w.__vid=vShow?{el:vShow,a:VA}:null;w.__scan={el:scanv,a:r6};w.__dim=r6>.02?.45*r6:0}catch(e){}
 
  // HUD
  const nearest=Math.round(qs);

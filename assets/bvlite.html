@@ -147,6 +147,31 @@ gl.bindBuffer(gl.ARRAY_BUFFER,qb);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0)
 const KS={kM:1,kR:1,kL:1,kC:1,kH:1,kG:1,kO:1};function mxStep(dt){for(const id in KS){const t=E[id]??1;KS[id]+=(t-KS[id])*Math.min(1,dt*16)}}
 function overlay(w,h){if(KS.kO>.998)return;gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,w,h);gl.disable(gl.DEPTH_TEST);gl.useProgram(op);gl.bindBuffer(gl.ARRAY_BUFFER,qb);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(0);gl.enable(gl.BLEND);
 gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ZERO,gl.ONE);gl.uniform4f(ocol,0,0,0,1-KS.kO);gl.drawArrays(gl.TRIANGLES,0,3);gl.disable(gl.BLEND);gl.useProgram(pr)}
+/* video faces drawn inside the same canvas: the piece's video on the plate's underside, the avatar centered */
+const CAMR='vec3 camR(vec3 p){float c=cos(ang),sn=sin(ang);p=vec3(p.x*c+p.z*sn,p.y,-p.x*sn+p.z*c);float ct=cos(tilt),st=sin(tilt);p=vec3(p.x,p.y*ct-p.z*st,p.y*st+p.z*ct);float cr=cos(roll),sr=sin(roll);return vec3(p.x*cr-p.y*sr,p.x*sr+p.y*cr,p.z);}';
+const vp=gl.createProgram();gl.attachShader(vp,sh(gl.VERTEX_SHADER,'attribute vec3 p;attribute vec2 uv;varying vec2 v;uniform float ang,tilt,roll,zoom,asp,lens,dist;uniform vec3 coff;'+CAMR+'void main(){vec3 q=camR(p)-vec3(coff.x,coff.y,-coff.z);float w=dist-q.z;vec2 k=asp>1.?vec2(1./asp,1.):vec2(1.,asp);gl_Position=vec4(q.xy*k*lens*zoom,w-.1,w);v=uv;}'));
+gl.attachShader(vp,sh(gl.FRAGMENT_SHADER,'precision mediump float;varying vec2 v;uniform sampler2D tx;uniform float al;void main(){gl_FragColor=vec4(texture2D(tx,v).rgb,al);}'));gl.bindAttribLocation(vp,0,'p');gl.bindAttribLocation(vp,1,'uv');gl.linkProgram(vp);
+const vloc={},VU=(n,...v)=>{if(!(n in vloc))vloc[n]=gl.getUniformLocation(vp,n);if(vloc[n])gl['uniform'+v.length+'f'](vloc[n],...v)};
+const sp=gl.createProgram();gl.attachShader(sp,sh(gl.VERTEX_SHADER,'attribute vec2 a;varying vec2 v;uniform vec2 hs;void main(){gl_Position=vec4(a*hs,0.,1.);v=vec2(.5+.5*a.x,.5-.5*a.y);}'));
+gl.attachShader(sp,sh(gl.FRAGMENT_SHADER,'precision mediump float;varying vec2 v;uniform sampler2D tx;uniform float al;void main(){float d=length(v-.5);gl_FragColor=vec4(texture2D(tx,v).rgb,al*(1.-smoothstep(.41,.509,d)));}'));gl.bindAttribLocation(sp,0,'a');gl.linkProgram(sp);
+const sloc={hs:gl.getUniformLocation(sp,'hs'),tx:gl.getUniformLocation(sp,'tx'),al:gl.getUniformLocation(sp,'al')};
+const fb=gl.createBuffer(),sqb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,sqb);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,1,1,-1,1]),gl.STATIC_DRAW);
+function mkTex(){const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([6,4,12,255]));return t}
+const vtx=mkTex(),stx=mkTex();
+function upTex(t,el,unit){gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,t);
+ if(el&&el.readyState>=2&&el.videoWidth){const k=el.currentTime;if(t._el!==el||t._k!==k||!t._ok){try{gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,el);t._ok=1;t._el=el;t._k=k}catch(e){}}}
+ else if(t._el!==el){gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([6,4,12,255]));t._el=el;t._ok=0}}
+function drawFace(cm,w,h){const V=window.__vid;if(!V||!V.el||!(V.a>.004))return;upTex(vtx,V.el,5);
+ const sx=E.sx,sz=E.sz,y=-.35*E.sy-.006;gl.bindBuffer(gl.ARRAY_BUFFER,fb);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-sx,y,sz,0,0, sx,y,sz,1,0, sx,y,-sz,1,1, -sx,y,-sz,0,1]),gl.DYNAMIC_DRAW);
+ gl.useProgram(vp);gl.uniform1i(gl.getUniformLocation(vp,'tx'),5);VU('ang',cm.yaw);VU('tilt',cm.pitch);VU('roll',cm.roll);VU('zoom',cm.zoom);VU('asp',w/h);VU('lens',cm.lens);VU('dist',cm.dist);VU('coff',cm.x,cm.y,cm.z);VU('al',Math.min(1,V.a));
+ gl.enableVertexAttribArray(0);gl.enableVertexAttribArray(1);gl.vertexAttribPointer(0,3,gl.FLOAT,false,20,0);gl.vertexAttribPointer(1,2,gl.FLOAT,false,20,12);
+ gl.enable(gl.DEPTH_TEST);gl.depthMask(false);gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ZERO,gl.ONE);gl.drawArrays(gl.TRIANGLE_FAN,0,4);
+ gl.disable(gl.BLEND);gl.depthMask(true);gl.disableVertexAttribArray(1);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex);gl.useProgram(pr)}
+function drawTop(w,h){const dm=+window.__dim||0,S=window.__scan;if(dm<.002&&!(S&&S.el&&S.a>.004))return;gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.viewport(0,0,w,h);gl.disable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ZERO,gl.ONE);
+ if(dm>=.002){gl.useProgram(op);gl.bindBuffer(gl.ARRAY_BUFFER,qb);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(0);gl.uniform4f(ocol,0,0,0,dm);gl.drawArrays(gl.TRIANGLES,0,3)}
+ if(S&&S.el&&S.a>.004){upTex(stx,S.el,6);gl.useProgram(sp);gl.uniform1i(sloc.tx,6);const cw=cv.clientWidth||1,ch=cv.clientHeight||1,s=Math.min(.74*ch,.56*cw);gl.uniform2f(sloc.hs,s/cw,s/ch);gl.uniform1f(sloc.al,Math.min(1,S.a));
+  gl.bindBuffer(gl.ARRAY_BUFFER,sqb);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(0);gl.drawArrays(gl.TRIANGLE_FAN,0,4);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,tex)}
+ gl.disable(gl.BLEND);gl.useProgram(pr)}
 let ang=0;
 function camParams(){return{yaw:ang,pitch:E.tilt,roll:0,x:0,y:0,z:0,zoom:E.ozm,lens:E.olen/12,dist:5*E.olen/12/3.1,dof:0}}
 let LXv=null;
@@ -165,7 +190,7 @@ U('ltr',E.ltr);U('lc',...hsl(E.lhue,100,68));U('fill',E.fill);U('tOn',0);U('psz'
 gl.bindBuffer(gl.ARRAY_BUFFER,vb);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);gl.enableVertexAttribArray(0);
 gl.enable(gl.POLYGON_OFFSET_FILL);gl.polygonOffset(1,1);U('mode',0);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,tb);gl.drawElements(gl.TRIANGLES,nT,gl.UNSIGNED_SHORT,0);
 gl.disable(gl.POLYGON_OFFSET_FILL);U('mode',1);gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,lb);gl.drawElements(gl.LINES,nL,gl.UNSIGNED_SHORT,0);
-if(useG)glitchPass(w,h,gL);overlay(w,h)}
+drawFace(cm,w,h);if(useG)glitchPass(w,h,gL);overlay(w,h);drawTop(w,h)}
 let last=performance.now(),fpsT=0;
 function frame(now){requestAnimationFrame(frame);if(document.hidden)return;
 {const FC=window.__fpsCap||60;if(FC<60){const iv=1000/FC;if(now-fpsT<iv-1.5)return;fpsT=now-Math.min((now-fpsT)%iv,iv*.5)}}
