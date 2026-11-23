@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 34</div>
+<div id="dbg"></div><div id="ver">build 35</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");L.removeItem("emb:bviz_th");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/botinavision.html?v=34" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
+<iframe id="bv" src="assets/bvlite.html?v=35" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
 <div id="dim" style="position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:-1"></div><div id="vig"></div>
 <div id="spacer"></div>
 
@@ -158,7 +158,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),NOBV=/[?&]nobv\b/.test(location.search),FLAT=NOBV||/[?&]flat\b/.test(location.search);
-const VER="34";window.__mob=mobile;
+const VER="35";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -226,7 +226,7 @@ const STYLE=[ // per piece look: height, iridescence, glitter, line thickness, g
 function hmix(hs,ws){let x=0,y=0;for(let i=0;i<hs.length;i++){x+=Math.cos(hs[i]*Math.PI/180)*ws[i];y+=Math.sin(hs[i]*Math.PI/180)*ws[i]}return(Math.atan2(y,x)*180/Math.PI+360)%360}
 function palAt(name,ck){const a=PAL[name];if(!a)return null;const t=(ck%30)*2,i=Math.floor(t)%a.length,j=(i+1)%a.length,f=t-Math.floor(t);const A=a[i],B=a[j];return{a:hmix([A[0],B[0]],[1-f,f]),b:hmix([A[1],B[1]],[1-f,f]),s:A[2]*(1-f)+B[2]*f,l:A[3]*(1-f)+B[3]*f}}
 /* ---------- Botinavision engine (the real program, in an iframe) ---------- */
-const bv=$("#bv");if(/[?&]nobv\b/.test(location.search)){bv.removeAttribute("src");bv.src="about:blank"}
+const bv=$("#bv");if(/[?&]eng=full\b/.test(location.search))bv.src="assets/botinavision.html?v=35";if(/[?&]nobv\b/.test(location.search)){bv.removeAttribute("src");bv.src="about:blank"}
 const feed=new Uint8Array(2048);let feedSR=44100;
 const CAM={yaw:.7,pitch:.85,dk:1,dof:0,roll:0,zoom:1.2};
 const ST={u:0,zm:1.2,hA:265,hB:185,sat:85,br:1,lh:50,chs:180,b:0,R:0,ima:0,sx:1,sz:1,h:.7,bass:0,fill:.15,gam:.2,hoI:0,hoG:0,lth:12,lgl:.5,cmx:1.5,gsc:.35,con:1,cab:0};
@@ -392,15 +392,13 @@ function tick(now){
  for(let i=0;i<N;i++){const v=vEls[i];
   if(mobile&&!v._fb&&Math.abs(qs-(i+1))<1.6)fetchBlob(v,v._u);
   const on=i===vi&&VA>.004&&(FLAT?flatFace(v):placeFace(v)),op=on?VA:0;if(v._op!==op){v.style.opacity=op.toFixed(3);v.style.visibility=op>0?"visible":"hidden";v._op=op}
-  const near=gateOpen&&!SLEEP&&Math.abs(qs-(i+1))<.85;
-  if(on||near){v._off=0;
+  if(on){v._off=0;
    if(v.paused&&!v._pl){v._pl=true;v.play().then(()=>{v._pl=false},()=>{v._pl=false})}
-   if(!v._synced&&v.readyState>=1){try{v.currentTime=ck%v.duration||0}catch(e){}v._synced=true;v._wtT=now}}
-  if(on){
+   if(!v._synced&&v.readyState>=1){try{v.currentTime=ck%v.duration||0}catch(e){}v._synced=true;v._wtT=now}
    if(!v.paused&&v.readyState>=2&&!v.seeking){if(v.currentTime!==v._wt){v._wt=v.currentTime;v._wtT=now}else if(now-v._wtT>2500){v._wtT=now;v.play().catch(()=>{})}}
   }else{v._off+=dt;if(v._off>.8&&!v.paused&&(v._warm||gateOpen)){v.pause();v._synced=false}}}
  if(mobile&&!scanv._fb&&qs>NST-2.2)fetchBlob(scanv,scanv._u);
- if(r6>.01||(gateOpen&&qs>NST-1.6)){if(scanv.paused&&!scanv._pl){scanv._pl=true;scanv.play().then(()=>{scanv._pl=false}).catch(()=>{scanv._pl=false})}}else if(!scanv.paused&&(scanv._warm||gateOpen))scanv.pause();
+ if(r6>.01){if(scanv.paused&&!scanv._pl){scanv._pl=true;scanv.play().then(()=>{scanv._pl=false}).catch(()=>{scanv._pl=false})}}else if(!scanv.paused&&(scanv._warm||gateOpen))scanv.pause();
  scanv.style.opacity=r6;scanEl.style.opacity=r6>.01?1:0;
 
  // HUD
