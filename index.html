@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 26</div>
-<script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);if(m)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][+m[1]],lvl:+m[1]}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/botinavision.html?v=26" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<div id="dbg"></div><div id="ver">build 27</div>
+<script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
+<iframe id="bv" src="assets/botinavision.html?v=27" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -157,7 +157,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),FLAT=/[?&]flat\b/.test(location.search);
-const VER="26";window.__mob=mobile;
+const VER="27";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -318,6 +318,7 @@ function bakedFeed(ck,g,fc){
 
 function frame(now){
  requestAnimationFrame(frame);
+ if(SLEEP){last=now;return}
  try{tick(now)}catch(e){if(errN++<5)console.error(e);window.__err=String(e&&e.stack||e)}
 }
 function tick(now){
@@ -375,7 +376,7 @@ function tick(now){
   const kc=1-.1325*sm(clamp(-sp));ST.sx=(A[0]+(B[0]-A[0])*wq)*kc;ST.sz=(A[1]+(B[1]-A[1])*wq)*kc;
   ST.u=sm(clamp((.35-Math.abs(sp))/.35))*.7;
   VA=NOV?0:vidA;bv.style.opacity=GLOST?"0":"1";
-  const cap=vidA>.995?8:vidA>.02?(lite?20:30):(lite?30:60);if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
+  const cap=vidA>.995?8:vidA>.02?(lite?20:30):(mobile?60:(lite?30:40));if(bv._cap!==cap){bv._cap=cap;try{bv.contentWindow.__fpsCap=cap}catch(e){}}
   window.__ph=ph}
  CAM.dof=0;{const f=r6>.02?'brightness('+(1-.45*r6).toFixed(2)+')':'';if(bv._f!==f){bv.style.filter=f;bv._f=f}}
 
@@ -438,6 +439,11 @@ $("#lang").onclick=()=>{lang=lang==="en"?"es":"en";applyLang()};
 $("#brand").onclick=e=>{e.preventDefault();scrollTo({top:0,behavior:"smooth"})};
 addEventListener("pagehide",()=>{try{if(ctx&&ctx.state!=="closed")ctx.close()}catch(e){}});
 ["pointerdown","touchend","keydown","wheel"].forEach(ev=>addEventListener(ev,()=>{if(ctx&&ctx.state!=="running"&&!document.hidden)ctx.resume().catch(()=>{})},{passive:true}));
+let SLEEP=false;
+function goSleep(){if(SLEEP)return;SLEEP=true;try{(typeof vEls!=="undefined"?vEls:[]).forEach(v=>v&&v.pause&&v.pause());const sv=document.getElementById("scanv");sv&&sv.pause()}catch(e){}try{bv.contentWindow.__fpsCap=.2;bv._cap=-1}catch(e){}try{ctx&&ctx.state==="running"&&ctx.suspend()}catch(e){}}
+function wake(){if(!SLEEP||document.hidden)return;SLEEP=false;[0,300,900].forEach(d=>setTimeout(()=>{try{if(ctx&&ctx.state==="suspended")ctx.resume()}catch(e){}},d))}
+addEventListener("blur",()=>{if(!DEBUG||!/nosleep/.test(location.search))goSleep()});addEventListener("focus",wake);addEventListener("pointerdown",wake,true);addEventListener("keydown",wake,true);addEventListener("wheel",wake,{capture:true,passive:true});addEventListener("touchstart",wake,{capture:true,passive:true});
+document.addEventListener("visibilitychange",()=>{document.hidden?goSleep():wake()});
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)[0,300,900,2000].forEach(d=>setTimeout(()=>{try{if(ctx&&ctx.state!=="running"&&ctx.state!=="closed")ctx.resume()}catch(e){}},d));try{if(document.hidden){(typeof vEls!=="undefined"?vEls:[]).forEach(v=>v&&v.pause&&v.pause());const sv=document.getElementById("scanv");sv&&sv.pause()}}catch(e){}if(!ctx)return;document.hidden?ctx.suspend():ctx.resume()});
 let lastOpen=0;document.getElementById("more").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;const t=Date.now();if(t-lastOpen<2500){e.preventDefault();return}lastOpen=t});
 addEventListener("resize",resize);
