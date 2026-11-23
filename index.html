@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 28</div>
+<div id="dbg"></div><div id="ver">build 29</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");L.removeItem("emb:bviz_th");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/botinavision.html?v=28" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<iframe id="bv" src="assets/botinavision.html?v=29" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -157,7 +157,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),FLAT=/[?&]flat\b/.test(location.search);
-const VER="28";window.__mob=mobile;
+const VER="29";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -269,7 +269,13 @@ const scanv=$("#scanv");scanv.preload=mobile?"metadata":"auto";scanv._u="assets/
 const GATE_V=NOV?[]:mobile?[vEls[0],vEls[1]]:[...vEls,scanv];
 function fetchBlob(v,url){if(v._fb)return;v._fb=1;v._pr=0;
  fetch(url).then(r=>{if(!r.ok)throw 0;const L=+r.headers.get("content-length")||0;if(!r.body||!L)return r.blob();const rd=r.body.getReader(),ch=[];let n=0;const pump=()=>rd.read().then(x=>{if(x.done)return new Blob(ch,{type:"video/mp4"});ch.push(x.value);n+=x.value.length;v._pr=Math.min(1,n/L);return pump()});return pump()}).then(b=>{v._pr=1;v._blob=1;v.src=URL.createObjectURL(b);try{v.load()}catch(e){}}).catch(()=>{v._blob=1;v.src=url;try{v.load()}catch(e){}})}
-function vProg(v){if(!v._blob)return v._fb?Math.min(.9,(v._pr||0)*.9):0;if(v.readyState>=3)return 1;try{if(v.duration&&v.buffered.length)return Math.min(.97,v.buffered.end(v.buffered.length-1)/v.duration)}catch(e){}return 0}
+const WQ=[];let warming=false;
+function warmNext(){if(warming||gateOpen)return;const v=WQ.shift();if(!v)return;warming=true;let done=false;const t0=performance.now();
+ const fin=()=>{if(done)return;done=true;try{v.pause();v.currentTime=0}catch(e){}v._warm=1;warming=false;setTimeout(warmNext,60)};
+ const chk=()=>{if(done)return;if(v.currentTime>.25||performance.now()-t0>8000)fin();else setTimeout(chk,50)};
+ try{v.muted=true;const p=v.play();p&&p.catch&&p.catch(()=>fin())}catch(e){fin()}chk()}
+function warmAdd(v){if(!v._wq){v._wq=1;WQ.push(v);warmNext()}}
+function vProg(v){if(!v._blob)return v._fb?Math.min(.8,(v._pr||0)*.8):0;if(v._warm)return 1;if(v.readyState>=3){warmAdd(v);return .9}try{if(v.duration&&v.buffered.length)return Math.min(.97,v.buffered.end(v.buffered.length-1)/v.duration)}catch(e){}return 0}
 
 let lite=false,dtE=1/60,slow=0;
 function resize(){layout()}
@@ -387,12 +393,11 @@ function tick(now){
   const on=i===vi&&VA>.004&&(FLAT?flatFace(v):placeFace(v)),op=on?VA:0;if(v._op!==op){v.style.opacity=op.toFixed(3);v.style.visibility=op>0?"visible":"hidden";v._op=op}
   if(on){v._off=0;
    if(v.paused&&!v._pl){v._pl=true;v.play().then(()=>{v._pl=false},()=>{v._pl=false})}
-   if(v.seeking||v.readyState<2){if(!v._bt)v._bt=now;else if(now-v._bt>2200&&(v._rt||0)<3&&v.currentSrc){v._rt=(v._rt||0)+1;v._bt=now;try{const u=v.currentSrc;v.pause();v.src=u;v.load();v._synced=false}catch(e){}}}else v._bt=0;
    if(!v._synced&&v.readyState>=1){try{v.currentTime=ck%v.duration||0}catch(e){}v._synced=true;v._wtT=now}
    if(!v.paused&&v.readyState>=2&&!v.seeking){if(v.currentTime!==v._wt){v._wt=v.currentTime;v._wtT=now}else if(now-v._wtT>2500){v._wtT=now;v.play().catch(()=>{})}}
-  }else{v._off+=dt;if(v._off>.8&&!v.paused){v.pause();v._synced=false}}}
+  }else{v._off+=dt;if(v._off>.8&&!v.paused&&(v._warm||gateOpen)){v.pause();v._synced=false}}}
  if(mobile&&!scanv._fb&&qs>NST-2.2)fetchBlob(scanv,scanv._u);
- if(r6>.01){if(scanv.paused&&!scanv._pl){scanv._pl=true;scanv.play().then(()=>{scanv._pl=false}).catch(()=>{scanv._pl=false})}}else if(!scanv.paused)scanv.pause();
+ if(r6>.01){if(scanv.paused&&!scanv._pl){scanv._pl=true;scanv.play().then(()=>{scanv._pl=false}).catch(()=>{scanv._pl=false})}}else if(!scanv.paused&&(scanv._warm||gateOpen))scanv.pause();
  scanv.style.opacity=r6;scanEl.style.opacity=r6>.01?1:0;
 
  // HUD
