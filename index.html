@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 25</div>
+<div id="dbg"></div><div id="ver">build 26</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);if(m)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][+m[1]],lvl:+m[1]}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/botinavision.html?v=25" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
+<iframe id="bv" src="assets/botinavision.html?v=26" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe><div id="vig"></div>
 <div id="spacer"></div>
 
 <div id="hud">
@@ -157,7 +157,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),FLAT=/[?&]flat\b/.test(location.search);
-const VER="25";window.__mob=mobile;
+const VER="26";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
