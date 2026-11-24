@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="description" content="Botina — artist, producer and DJ. Scroll to mix: sound, image and code from Pasto to New York.">
 <meta name="theme-color" content="#000000">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Crect width=%278%27 height=%278%27 fill=%27%23000%27/%3E%3Ccircle cx=%274%27 cy=%274%27 r=%271.6%27 fill=%27%2319d4ff%27/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png?v=1">
 <meta property="og:title" content="Botina — sound, image and code">
 <meta property="og:description" content="Artist, producer and DJ. Award-winning music videos and video art, mixed live in a real-time 3D spectrogram. Scroll to mix.">
 <meta property="og:image" content="https://botina.co/assets/og.jpg">
@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 43</div>
+<div id="dbg"></div><div id="ver">build 44</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");L.removeItem("emb:bviz_th");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/bvlite.html?v=43" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
+<iframe id="bv" src="assets/bvlite.html?v=44" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
 <div id="dim" style="position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:-1"></div><div id="vig"></div>
 <div id="spacer"></div>
 
@@ -158,7 +158,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),NOBV=/[?&]nobv\b/.test(location.search),FLAT=NOBV||/[?&]flat\b/.test(location.search);
-const VER="43";window.__mob=mobile;
+const VER="44";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -325,7 +325,7 @@ function bakedFeed(ck,g,fc){
 
 function frame(now){
  requestAnimationFrame(frame);
- if(SLEEP||leaving){last=now;return}
+ if(SLEEP){last=now;return}
  try{tick(now)}catch(e){if(errN++<5)console.error(e);window.__err=String(e&&e.stack||e)}
 }
 function tick(now){
@@ -452,14 +452,7 @@ addEventListener("pagehide",()=>{try{if(ctx&&ctx.state!=="closed")ctx.close()}ca
 const SLEEP=false;
 document.addEventListener("visibilitychange",()=>{if(!document.hidden)[0,300,900,2000].forEach(d=>setTimeout(()=>{try{if(ctx&&ctx.state!=="running"&&ctx.state!=="closed")ctx.resume()}catch(e){}},d));try{if(document.hidden){(typeof vEls!=="undefined"?vEls:[]).forEach(v=>v&&v.pause&&v.pause());const sv=document.getElementById("scanv");sv&&sv.pause()}}catch(e){}});
 document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest('a[href="bv.html"]');if(a)a.href="bv.html?lang="+(typeof lang!=="undefined"?lang:"es")},true);
-let leaving=false;
-document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[href]");if(!a)return;const h=a.getAttribute("href")||"";if(h.startsWith("#")||h.startsWith("mailto:"))return;if(e.ctrlKey||e.metaKey||e.shiftKey||e.button===1)return;
- e.preventDefault();e.stopPropagation();if(leaving)return;leaving=true;const url=a.href;
- try{if(master&&ctx){const t=ctx.currentTime;master.gain.cancelScheduledValues(t);master.gain.setValueAtTime(master.gain.value,t);master.gain.linearRampToValueAtTime(0,t+.15)}}catch(_){}
- try{(typeof vEls!=="undefined"?vEls:[]).forEach(v=>v&&v.pause&&v.pause());const sv=document.getElementById("scanv");sv&&sv.pause()}catch(_){}
- try{document.querySelectorAll("iframe").forEach(f=>{f.style.visibility="hidden";f.src="about:blank"})}catch(_){}
- setTimeout(()=>{try{if(ctx&&ctx.state!=="closed")ctx.close()}catch(_){}location.href=url},220)},false);
-addEventListener("pageshow",e=>{if(e.persisted)location.reload()});
+let lastOpen=0;document.getElementById("more").addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;const t=Date.now();if(t-lastOpen<2500){e.preventDefault();return}lastOpen=t});
 addEventListener("resize",resize);
 document.documentElement.classList.add("lock");
 applyLang();resize();requestAnimationFrame(frame)
