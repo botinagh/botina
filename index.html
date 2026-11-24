@@ -9,13 +9,13 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Crect width=%278%27 height=%278%27 fill=%27%23000%27/%3E%3Ccircle cx=%274%27 cy=%274%27 r=%271.6%27 fill=%27%2319d4ff%27/%3E%3C/svg%3E">
 <meta property="og:title" content="Botina — sound, image and code">
 <meta property="og:description" content="Artist, producer and DJ. Award-winning music videos and video art, mixed live in a real-time 3D spectrogram. Scroll to mix.">
-<meta property="og:image" content="https://botinagh.github.io/botina/assets/og.jpg">
+<meta property="og:image" content="https://botina.co/assets/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://botinagh.github.io/botina/">
+<meta property="og:url" content="https://botina.co/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://botinagh.github.io/botina/assets/og.jpg">
+<meta name="twitter:image" content="https://botina.co/assets/og.jpg">
 <style>
 @font-face{font-family:Geist;src:url(assets/geist.woff) format("woff");font-weight:100 900;font-display:swap}
 @font-face{font-family:"Geist Mono";src:url(assets/geist-mono.woff) format("woff");font-weight:100 900;font-display:swap}
@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 41</div>
+<div id="dbg"></div><div id="ver">build 42</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");L.removeItem("emb:bviz_th");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/bvlite.html?v=41" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
+<iframe id="bv" src="assets/bvlite.html?v=42" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
 <div id="dim" style="position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:-1"></div><div id="vig"></div>
 <div id="spacer"></div>
 
@@ -158,7 +158,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),NOBV=/[?&]nobv\b/.test(location.search),FLAT=NOBV||/[?&]flat\b/.test(location.search);
-const VER="41";window.__mob=mobile;
+const VER="42";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -169,7 +169,7 @@ en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos 
  {t:"Tetrahedron",m:"2024 · 3D animation",d:"Fire and its powerful voice, inside the body of a sleeping volcano, reveal the truths of life beyond body and matter, in an animation made with the real geography of the Galeras volcano, built from satellite data, and the motion capture of a classical dancer.",w:"Honorable mention — XX Festival de la Imagen · Shown at Cinemateca de Bogotá · Official selection — Pasto International Film Festival"},
  {t:"Prima Materia",m:"2023 · Dynamic artwork · with Roeleke",d:"A journey through the seven chakras: each one a sphere with its own color, musical key, cymatics and sound.",w:"1st place — HUG × Transient Labs Innovation Lab · Shown at the Oculus Gallery, New York",l:"https://youtu.be/TFXXs81ukmY",lt:"Watch full piece"},
  {t:"Invisible",m:"2022 · Video",d:"In war, to stay alive you must take shelter, but faith, hope, love, dreams and memory dodge the bullets with grace, for they cannot be destroyed. Its flag carries Ukraine's blue and yellow: the sky and the sun of any country.",w:"Exhibited — Digital Art Month, Paris (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Watch full piece"},
- {t:"Live",m:"Live set · LED jacket · Botinavision",d:"Mixing my original songs live while I control the LED jacket and Botinavision's visuals in real time."}
+ {t:"Live",m:"Live set · LED jacket · Botinavision",d:"Mixing my original songs live while I control the LED jacket and Botinavision's visuals in real time.",l:"https://youtube.com/shorts/wVbTSsoGdUg",lt:"Watch the live set"}
  ]},
 es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte premiados, mezclados en vivo dentro de un espectrograma 3D en tiempo real.",cue:"Baja con la rueda del mouse",cueM:"Desliza hacia abajo",gate:"Para recorrer las obras, baja con la rueda del mouse o desliza. El sonido se abre y el espectrograma gira para mostrar cada pieza. Mejor con audífonos.",tune:"Afinando…",go:"Entrar con sonido",goq:"Entrar en silencio",snd:"Sonido",
  s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",bvl:"Probar Botinavision ↗",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mk:"Otras obras · playlists",pl3:"Realidad aumentada",pl2:"Arte digital",pl1:"Videoclips originales",mf:"«Elijo ser por siempre libre, por siempre humano.»",
@@ -178,7 +178,7 @@ es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte p
  {t:"Tetrahedron",m:"2024 · Animación 3D",d:"El fuego y su voz poderosa, en el cuerpo de un volcán dormido, revelan las verdades de la vida más allá del cuerpo y la materia, en una animación hecha con la geografía real del volcán Galeras, construida con datos satelitales, y captura de movimiento de un bailarín clásico.",w:"Mención de honor — XX Festival de la Imagen · Exhibida en la Cinemateca de Bogotá · Selección oficial — Festival Internacional de Cine de Pasto"},
  {t:"Prima Materia",m:"2023 · Obra dinámica · con Roeleke",d:"Un viaje por los siete chakras: cada uno es una esfera con su color, su tonalidad musical, su cimática y su sonido.",w:"Primer lugar — HUG × Transient Labs Innovation Lab · Exhibida en la Oculus Gallery, Nueva York",l:"https://youtu.be/TFXXs81ukmY",lt:"Ver la pieza completa"},
  {t:"Invisible",m:"2022 · Video",d:"En la guerra, para no morir, hay que refugiarse, pero la fe, la esperanza, el amor, los sueños y la memoria esquivan las balas con gracia, pues son cosas que no se pueden destruir. Su bandera lleva el azul y el amarillo de Ucrania: el cielo y el sol de cualquier país.",w:"Exhibida — Digital Art Month, París (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Ver la pieza completa"},
- {t:"Live",m:"Set en vivo · chaqueta LED · Botinavision",d:"Mezclo en vivo mis canciones originales mientras controlo, en tiempo real, la chaqueta LED y los visuales de Botinavision."}
+ {t:"Live",m:"Set en vivo · chaqueta LED · Botinavision",d:"Mezclo en vivo mis canciones originales mientras controlo, en tiempo real, la chaqueta LED y los visuales de Botinavision.",l:"https://youtube.com/shorts/wVbTSsoGdUg",lt:"Ver el set en vivo"}
  ]}
 };
 let lang=(navigator.language||"en").toLowerCase().startsWith("es")?"es":"en";
