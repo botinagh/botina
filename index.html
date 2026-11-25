@@ -116,9 +116,9 @@ noscript{position:fixed;inset:0;display:grid;place-items:center;background:#000;
 </style>
 </head>
 <body>
-<div id="dbg"></div><div id="ver">build 46</div>
+<div id="dbg"></div><div id="ver">build 47</div>
 <script>(function(){try{const L=localStorage,o=L.getItem("bviz_perf");L.removeItem("emb:bviz_th");if(o&&/^\{"mode":"(alto|equilibrado|ligero)","lvl":[012]\}$/.test(o))L.removeItem("bviz_perf");const m=location.search.match(/[?&]perf=([012])/);const mob=matchMedia("(pointer:coarse)").matches,l=m?+m[1]:(mob?-1:2);if(l>=0)L.setItem("emb:bviz_perf",JSON.stringify({mode:["alto","equilibrado","ligero"][l],lvl:l}));else{const e=L.getItem("emb:bviz_perf");if(e&&!/bench/.test(e))L.removeItem("emb:bviz_perf")}}catch(e){}})()</script>
-<iframe id="bv" src="assets/bvlite.html?v=46" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
+<iframe id="bv" src="assets/bvlite.html?v=47" title="Botinavision" tabindex="-1" aria-hidden="true"></iframe>
 <div id="dim" style="position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:-1"></div><div id="vig"></div>
 <div id="spacer"></div>
 
@@ -158,7 +158,7 @@ const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
 const sm=x=>{x=clamp(x);return x*x*(3-2*x)};
 const mobile=matchMedia("(pointer:coarse)").matches||innerWidth<700;
 const DEBUG=/debug/.test(location.search),NOV=/[?&]nov\b/.test(location.search),NOBV=/[?&]nobv\b/.test(location.search),FLAT=NOBV||/[?&]flat\b/.test(location.search);
-const VER="46";window.__mob=mobile;
+const VER="47";window.__mob=mobile;
 
 /* ---------- content ---------- */
 const T={
@@ -169,7 +169,8 @@ en:{h1:"Music producer · audiovisual director",h1p:"Award-winning music videos 
  {t:"Tetrahedron",m:"2024 · 3D animation",d:"Fire and its powerful voice, inside the body of a sleeping volcano, reveal the truths of life beyond body and matter, in an animation made with the real geography of the Galeras volcano, built from satellite data, and the motion capture of a classical dancer.",w:"Honorable mention — XX Festival de la Imagen · Shown at Cinemateca de Bogotá · Official selection — Pasto International Film Festival"},
  {t:"Prima Materia",m:"2023 · Dynamic artwork · with Roeleke",d:"A journey through the seven chakras: each one a sphere with its own color, musical key, cymatics and sound.",w:"1st place — HUG × Transient Labs Innovation Lab · Shown at the Oculus Gallery, New York",l:"https://youtu.be/TFXXs81ukmY",lt:"Watch full piece"},
  {t:"Invisible",m:"2022 · Video",d:"In war, to stay alive you must take shelter, but faith, hope, love, dreams and memory dodge the bullets with grace, for they cannot be destroyed. Its flag carries Ukraine's blue and yellow: the sky and the sun of any country.",w:"Exhibited — Digital Art Month, Paris (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Watch full piece"},
- {t:"Live",m:"Live set · LED jacket · Botinavision",d:"Mixing my original songs live while I control the LED jacket and Botinavision's visuals in real time.",l:"https://youtube.com/shorts/wVbTSsoGdUg",lt:"Watch the live set"}
+ {t:"Smooth Cubical",m:"2021 · Augmented reality",d:"A choreography of cubes: an augmented-reality 3D animation that recreates the iconic moves of a great pop star.",w:"Exhibited — CADAF Digital Art Fair, Paris, 2021",l:"https://youtube.com/playlist?list=PLGsMlrG3zwtQ",lt:"Watch more augmented reality videos"},
+ {t:"Live",m:"Live set · LED jacket · Botinavision",d:"Mixing my original songs live while I control the LED jacket and Botinavision's visuals in real time.",l:"https://youtube.com/playlist?list=PLd5tOkpxBuS0",lt:"Watch more Botina IRL videos"}
  ]},
 es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte premiados, mezclados en vivo dentro de un espectrograma 3D en tiempo real.",cue:"Baja con la rueda del mouse",cueM:"Desliza hacia abajo",gate:"Para recorrer las obras, baja con la rueda del mouse o desliza. El sonido se abre y el espectrograma gira para mostrar cada pieza. Mejor con audífonos.",tune:"Afinando…",go:"Entrar con sonido",goq:"Entrar en silencio",snd:"Sonido",
  s1k:"Botina",s1v:"Productor musical · director audiovisual · Pasto, Colombia",s2k:"Instrumento",s2v:"Botinavision: 3D en tiempo real que reacciona al sonido. Esta página corre sobre él.",bvl:"Probar Botinavision ↗",s3k:"Premios",s3v:"1.er lugar HUG × Transient Labs (NY) · Mejor videoclip, Festival Int. de Cine de Pasto · Mención de honor, Festival de la Imagen",s4k:"Exhibido en",s4v:"NFT.NYC · Art Basel Miami · Digital Art Month París · Crypto Art Seoul · Rinascente Milán · Cinemateca de Bogotá",s5k:"Música y prensa",s5v:"Single «Y», LOVESEXDANCE Records, Milán · Obra «Rosario» en el Financial Times (2021)",s6k:"Escríbeme",mk:"Otras obras · playlists",pl3:"Realidad aumentada",pl2:"Arte digital",pl1:"Videoclips originales",mf:"«Elijo ser por siempre libre, por siempre humano.»",
@@ -178,11 +179,12 @@ es:{h1:"Productor musical · director audiovisual",h1p:"Videoclips y videoarte p
  {t:"Tetrahedron",m:"2024 · Animación 3D",d:"El fuego y su voz poderosa, en el cuerpo de un volcán dormido, revelan las verdades de la vida más allá del cuerpo y la materia, en una animación hecha con la geografía real del volcán Galeras, construida con datos satelitales, y captura de movimiento de un bailarín clásico.",w:"Mención de honor — XX Festival de la Imagen · Exhibida en la Cinemateca de Bogotá · Selección oficial — Festival Internacional de Cine de Pasto"},
  {t:"Prima Materia",m:"2023 · Obra dinámica · con Roeleke",d:"Un viaje por los siete chakras: cada uno es una esfera con su color, su tonalidad musical, su cimática y su sonido.",w:"Primer lugar — HUG × Transient Labs Innovation Lab · Exhibida en la Oculus Gallery, Nueva York",l:"https://youtu.be/TFXXs81ukmY",lt:"Ver la pieza completa"},
  {t:"Invisible",m:"2022 · Video",d:"En la guerra, para no morir, hay que refugiarse, pero la fe, la esperanza, el amor, los sueños y la memoria esquivan las balas con gracia, pues son cosas que no se pueden destruir. Su bandera lleva el azul y el amarillo de Ucrania: el cielo y el sol de cualquier país.",w:"Exhibida — Digital Art Month, París (CADAF)",l:"https://youtu.be/cg70rHEVYo4",lt:"Ver la pieza completa"},
- {t:"Live",m:"Set en vivo · chaqueta LED · Botinavision",d:"Mezclo en vivo mis canciones originales mientras controlo, en tiempo real, la chaqueta LED y los visuales de Botinavision.",l:"https://youtube.com/shorts/wVbTSsoGdUg",lt:"Ver el set en vivo"}
+ {t:"Smooth Cubical",m:"2021 · Realidad aumentada",d:"Una coreografía de cubos: animación 3D en realidad aumentada que recrea los movimientos icónicos de una gran estrella del pop.",w:"Exhibida — CADAF Digital Art Fair, París, 2021",l:"https://youtube.com/playlist?list=PLGsMlrG3zwtQ",lt:"Ver más videos de realidad aumentada"},
+ {t:"Live",m:"Set en vivo · chaqueta LED · Botinavision",d:"Mezclo en vivo mis canciones originales mientras controlo, en tiempo real, la chaqueta LED y los visuales de Botinavision.",l:"https://youtube.com/playlist?list=PLd5tOkpxBuS0",lt:"Ver más videos de Botina IRL"}
  ]}
 };
 let lang=(navigator.language||"en").toLowerCase().startsWith("es")?"es":"en";
-const P=[{id:"knockout",va:16/9},{id:"tetrahedron",va:16/9},{id:"prima",va:9/16},{id:"invisible",va:16/9},{id:"live",va:1}];
+const P=[{id:"knockout",va:16/9},{id:"tetrahedron",va:16/9},{id:"prima",va:9/16},{id:"invisible",va:16/9},{id:"smooth",va:464/848},{id:"live",va:1}];
 const N=P.length,NST=N+2;
 const FPS=24,FR=720,NBAND=96;
 function applyLang(){
@@ -203,7 +205,7 @@ function layout(){
 }
 const dots=$("#dots");
 for(let k=0;k<NST;k++){const a=document.createElement("a");a.onclick=()=>scrollTo({top:k*step,behavior:"smooth"});dots.appendChild(a)}
-const SA=[0,180,540,900,1260,1620,1800];
+const SA=[0,...P.map((_,i)=>180+360*i),180+360*(N-1)+180];
 function gS(f){const u=clamp((f-.12)/.76);return u*u*(3-2*u)*.3+u*.7}
 function stage(p){const k=Math.min(NST-1,Math.floor(p)),f=p-k;return Math.min(NST-1,k+gS(f))}
 
@@ -220,6 +222,7 @@ const STYLE=[ // per piece look: height, iridescence, glitter, line thickness, g
  {h:1.1,hoI:.55,hoG:.1,lth:18,lgl:.85,cmx:1.4,gsc:.3,gam:.12,cab:.15},
  {h:.75,hoI:.35,hoG:.2,lth:12,lgl:.7,cmx:2.2,gsc:.5,gam:.15,cab:.2},
  {h:.65,hoI:.1,hoG:0,lth:10,lgl:.5,cmx:1.3,gsc:.25,gam:.3,cab:.1},
+ {h:.6,hoI:.3,hoG:.15,lth:11,lgl:.65,cmx:1.5,gsc:.3,gam:.1,cab:.12},
  {h:1.0,hoI:.3,hoG:.7,lth:12,lgl:.9,cmx:1.8,gsc:.45,gam:.3,cab:.35},
  {h:.55,hoI:.4,hoG:.2,lth:10,lgl:.6,cmx:1.6,gsc:.3,gam:.1,cab:.1}];
 
@@ -316,9 +319,9 @@ const dotEls=[...dots.children];
 let lpfShown=CUT_LO,last=performance.now(),errN=0;
 
 function bakedFeed(ck,g,fc){
- const fr=Math.floor((ck%30)*FPS)%FR;feed.fill(0);
+ feed.fill(0);
  for(let i=0;i<N;i++){
-  if(g[i]<.02||!bands[i])continue;const o=fr*NBAND;const f0=fc[i];
+  if(g[i]<.02||!bands[i])continue;const nf=(bands[i].length/NBAND)|0;if(!nf)continue;const fr=Math.floor((ck%(nf/FPS))*FPS)%nf;const o=fr*NBAND;const f0=fc[i];
   for(let k=1;k<2048;k++){const bf=binF[k];if(bf<0)continue;const b=Math.min(NBAND-1,bf|0);const hz=k*44100/4096;
    const att=.05+.95/(1+Math.pow(hz/f0,2.2));feed[k]=Math.min(255,feed[k]+bands[i][o+b]*att*g[i]*.92)}
  }
@@ -359,14 +362,14 @@ function tick(now){
  let bass=0;{let s=0;for(let k=2;k<30;k++)s+=feed[k];bass=clamp(s/28/200)}
  // ---- drive the real engine: palette, cells, print, camera ----
  const r6=sm(1-Math.abs(qs-(NST-1))/.6);
- const w6=new Float32Array(6);for(let i=0;i<5;i++)w6[i]=Math.max(0,1-Math.abs(qs-(i+1)));w6[5]=Math.max(0,1-Math.abs(qs-6));
+ const w6=new Float32Array(N+1);for(let i=0;i<N;i++)w6[i]=Math.max(0,1-Math.abs(qs-(i+1)));w6[N]=Math.max(0,1-Math.abs(qs-(N+1)));
  const wHero=qs<1?1-qs:0;
- {let sw=0;for(let i=0;i<6;i++)sw+=w6[i];if(sw<.001){w6[0]=1;sw=1}for(let i=0;i<6;i++)w6[i]/=sw}
- const PN=["knockout","tetrahedron","prima","invisible","live","scan"];
+ {let sw=0;for(let i=0;i<=N;i++)sw+=w6[i];if(sw<.001){w6[0]=1;sw=1}for(let i=0;i<=N;i++)w6[i]/=sw}
+ const PN=[...P.map(p=>p.id),"scan"];
  {const h1=[],h2=[],wn=[];let sat=0,lum=0;
-  for(let i=0;i<6;i++){const ww=w6[i]+(i===0?wHero:0);if(ww<.001)continue;const p=palAt(PN[i],ck);if(p){h1.push(p.a);h2.push(p.b);wn.push(ww);sat+=p.s*ww;lum+=p.l*ww}}
+  for(let i=0;i<=N;i++){const ww=w6[i]+(i===0?wHero:0);if(ww<.001)continue;const p=palAt(PN[i],ck);if(p){h1.push(p.a);h2.push(p.b);wn.push(ww);sat+=p.s*ww;lum+=p.l*ww}}
   if(wn.length){let sw=0;wn.forEach(x=>sw+=x);sat/=sw;lum/=sw;{const hd=hmix(h1,wn);ST.hA=(hd+180)%360;ST.hB=(hd+140)%360;ST.lh=hd}ST.sat=clamp(52+70*sat,55,100);ST.br=.95+.55*clamp(lum*1.5);ST.chs=((ST.hB-ST.hA)%360+360)%360}}
- for(const k of["h","hoI","hoG","lth","lgl","cmx","gsc","gam","cab"]){let x=0;for(let i=0;i<6;i++)x+=w6[i]*STYLE[i][k];ST[k]=x}
+ for(const k of["h","hoI","hoG","lth","lgl","cmx","gsc","gam","cab"]){let x=0;for(let i=0;i<=N;i++)x+=w6[i]*STYLE[i][k];ST[k]=x}
  ST.h*=(1-.78*R);
  const fq=qs-Math.floor(qs);ST.b=Math.pow(Math.sin(Math.PI*fq),.7);if(qs>=NST-1)ST.b=0;
  ST.R=R;ST.ima=0;ST.bass=bass;ST.fill=.15-.06*R;
